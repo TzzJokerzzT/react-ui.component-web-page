@@ -1,0 +1,1148 @@
+import React, { useState } from 'react';
+import { Accordion, AccordionItem } from '../components/Accordion';
+
+// Demo components for showcase
+const DemoCard: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
+  <div className="bg-white p-6 rounded-lg shadow-md border">
+    <h3 className="text-lg font-semibold mb-4 text-gray-800">{title}</h3>
+    <div className="space-y-4">
+      {children}
+    </div>
+  </div>
+);
+
+const CodeBlock: React.FC<{ code: string }> = ({ code }) => (
+  <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm">
+    <code>{code}</code>
+  </pre>
+);
+
+export const AccordionPage: React.FC = () => {
+  const [controlledKeys, setControlledKeys] = useState<string[]>(['item-1']);
+
+  const basicCode = `<Accordion>
+  <AccordionItem itemKey="item-1" title="What is React?">
+    React is a JavaScript library for building user interfaces.
+  </AccordionItem>
+  <AccordionItem itemKey="item-2" title="What is TypeScript?">
+    TypeScript is a typed superset of JavaScript.
+  </AccordionItem>
+</Accordion>`;
+
+  const variantCode = `<div className="space-y-6">
+  <Accordion variant="flat" color="primary">
+    <AccordionItem itemKey="flat-1" title="Flat Variant">
+      This is the flat variant with primary color.
+    </AccordionItem>
+  </Accordion>
+  
+  <Accordion variant="bordered" color="secondary">
+    <AccordionItem itemKey="bordered-1" title="Bordered Variant">
+      This is the bordered variant with secondary color.
+    </AccordionItem>
+  </Accordion>
+  
+  <Accordion variant="shadow" color="success">
+    <AccordionItem itemKey="shadow-1" title="Shadow Variant">
+      This is the shadow variant with success color.
+    </AccordionItem>
+  </Accordion>
+  
+  <Accordion variant="splitted" color="warning">
+    <AccordionItem itemKey="splitted-1" title="Splitted Variant">
+      This is the splitted variant with warning color.
+    </AccordionItem>
+  </Accordion>
+</div>`;
+
+  const sizeCode = `<div className="space-y-4">
+  <Accordion size="xs">
+    <AccordionItem itemKey="xs-1" title="Extra Small">Content</AccordionItem>
+  </Accordion>
+  
+  <Accordion size="sm">
+    <AccordionItem itemKey="sm-1" title="Small">Content</AccordionItem>
+  </Accordion>
+  
+  <Accordion size="md">
+    <AccordionItem itemKey="md-1" title="Medium">Content</AccordionItem>
+  </Accordion>
+  
+  <Accordion size="lg">
+    <AccordionItem itemKey="lg-1" title="Large">Content</AccordionItem>
+  </Accordion>
+  
+  <Accordion size="xl">
+    <AccordionItem itemKey="xl-1" title="Extra Large">Content</AccordionItem>
+  </Accordion>
+</div>`;
+
+  const multipleCode = `<Accordion selectionMode="multiple" defaultExpandedKeys={["item-1", "item-3"]}>
+  <AccordionItem itemKey="item-1" title="First Item">
+    First item content - can be expanded simultaneously
+  </AccordionItem>
+  <AccordionItem itemKey="item-2" title="Second Item">
+    Second item content - independent expansion
+  </AccordionItem>
+  <AccordionItem itemKey="item-3" title="Third Item">
+    Third item content - also expandable
+  </AccordionItem>
+</Accordion>`;
+
+  const controlledCode = `const [controlledKeys, setControlledKeys] = useState(['item-1']);
+
+<Accordion 
+  selectionMode="multiple"
+  expandedKeys={controlledKeys}
+  onExpandedChange={setControlledKeys}
+>
+  <AccordionItem itemKey="item-1" title="Controlled Item 1">
+    This accordion is controlled externally
+  </AccordionItem>
+  <AccordionItem itemKey="item-2" title="Controlled Item 2">
+    State is managed by parent component
+  </AccordionItem>
+</Accordion>`;
+
+  const itemsCode = `const items = [
+  {
+    key: "faq-1",
+    title: "What is your return policy?",
+    content: "We offer a 30-day return policy for all items."
+  },
+  {
+    key: "faq-2", 
+    title: "How long does shipping take?",
+    content: "Standard shipping takes 3-5 business days."
+  }
+];
+
+<Accordion items={items} />`;
+
+  // Sample items for items prop demo
+  const faqItems = [
+    {
+      key: "faq-1",
+      title: "What is your return policy?",
+      content: "We offer a 30-day return policy for all items in their original condition. Please contact our customer service team to initiate a return."
+    },
+    {
+      key: "faq-2",
+      title: "How long does shipping take?",
+      content: "Standard shipping takes 3-5 business days. Express shipping options are available for next-day delivery."
+    },
+    {
+      key: "faq-3",
+      title: "Do you offer international shipping?",
+      content: "Yes, we ship to most countries worldwide. Shipping costs and delivery times vary by location."
+    },
+    {
+      key: "faq-4",
+      title: "How can I track my order?",
+      content: "Once your order ships, you'll receive a tracking number via email. You can use this to track your package on our website."
+    }
+  ];
+
+  return (
+    <>
+    <div className="max-w-6xl mx-auto p-6 space-y-8">
+      <div className="text-center">
+        <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          Accordion Components
+        </h1>
+        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          HeroUI-style accordion components with multiple variants, sizes, colors, and advanced features.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Basic Usage */}
+        <DemoCard title="Basic Accordion">
+          <Accordion>
+            <AccordionItem itemKey="basic-1" title="What is React?">
+              <p>React is a JavaScript library for building user interfaces, particularly web applications. It allows developers to create reusable UI components and manage application state efficiently.</p>
+            </AccordionItem>
+            <AccordionItem itemKey="basic-2" title="What is TypeScript?">
+              <p>TypeScript is a typed superset of JavaScript that compiles to plain JavaScript. It adds static type definitions to help catch errors during development.</p>
+            </AccordionItem>
+            <AccordionItem itemKey="basic-3" title="What is Tailwind CSS?">
+              <p>Tailwind CSS is a utility-first CSS framework that provides low-level utility classes to build custom designs directly in your markup.</p>
+            </AccordionItem>
+          </Accordion>
+          
+          <details>
+            <summary className="cursor-pointer text-blue-600 hover:text-blue-700">
+              Show code
+            </summary>
+            <div className="mt-2">
+              <CodeBlock code={basicCode} />
+            </div>
+          </details>
+        </DemoCard>
+
+        {/* Variants */}
+        <DemoCard title="Variants">
+          <div className="space-y-4">
+            <div>
+              <p className="text-xs text-gray-500 mb-2">Flat</p>
+              <Accordion variant="flat" color="primary">
+                <AccordionItem itemKey="flat-1" title="Flat Variant">
+                  This is the flat variant with a subtle background color.
+                </AccordionItem>
+              </Accordion>
+            </div>
+            
+            <div>
+              <p className="text-xs text-gray-500 mb-2">Bordered</p>
+              <Accordion variant="bordered" color="secondary">
+                <AccordionItem itemKey="bordered-1" title="Bordered Variant">
+                  This is the bordered variant with visible borders.
+                </AccordionItem>
+              </Accordion>
+            </div>
+            
+            <div>
+              <p className="text-xs text-gray-500 mb-2">Shadow</p>
+              <Accordion variant="shadow" color="success">
+                <AccordionItem itemKey="shadow-1" title="Shadow Variant">
+                  This is the shadow variant with subtle shadows.
+                </AccordionItem>
+              </Accordion>
+            </div>
+            
+            <div>
+              <p className="text-xs text-gray-500 mb-2">Splitted</p>
+              <Accordion variant="splitted" color="warning">
+                <AccordionItem itemKey="splitted-1" title="Splitted Variant">
+                  This is the splitted variant with separated items.
+                </AccordionItem>
+                <AccordionItem itemKey="splitted-2" title="Another Item">
+                  Each item has its own container and spacing.
+                </AccordionItem>
+              </Accordion>
+            </div>
+          </div>
+          
+          <details>
+            <summary className="cursor-pointer text-blue-600 hover:text-blue-700">
+              Show code
+            </summary>
+            <div className="mt-2">
+              <CodeBlock code={variantCode} />
+            </div>
+          </details>
+        </DemoCard>
+
+        {/* Sizes */}
+        <DemoCard title="Sizes">
+          <div className="space-y-4">
+            <div>
+              <p className="text-xs text-gray-500 mb-2">Extra Small</p>
+              <Accordion size="xs">
+                <AccordionItem itemKey="xs-1" title="Extra Small Accordion">
+                  Compact size for limited space.
+                </AccordionItem>
+              </Accordion>
+            </div>
+            
+            <div>
+              <p className="text-xs text-gray-500 mb-2">Small</p>
+              <Accordion size="sm">
+                <AccordionItem itemKey="sm-1" title="Small Accordion">
+                  Small size with minimal padding.
+                </AccordionItem>
+              </Accordion>
+            </div>
+            
+            <div>
+              <p className="text-xs text-gray-500 mb-2">Medium (Default)</p>
+              <Accordion size="md">
+                <AccordionItem itemKey="md-1" title="Medium Accordion">
+                  Default size with balanced spacing.
+                </AccordionItem>
+              </Accordion>
+            </div>
+            
+            <div>
+              <p className="text-xs text-gray-500 mb-2">Large</p>
+              <Accordion size="lg">
+                <AccordionItem itemKey="lg-1" title="Large Accordion">
+                  Large size with generous spacing.
+                </AccordionItem>
+              </Accordion>
+            </div>
+            
+            <div>
+              <p className="text-xs text-gray-500 mb-2">Extra Large</p>
+              <Accordion size="xl">
+                <AccordionItem itemKey="xl-1" title="Extra Large Accordion">
+                  Maximum size with spacious layout.
+                </AccordionItem>
+              </Accordion>
+            </div>
+          </div>
+          
+          <details>
+            <summary className="cursor-pointer text-blue-600 hover:text-blue-700">
+              Show code
+            </summary>
+            <div className="mt-2">
+              <CodeBlock code={sizeCode} />
+            </div>
+          </details>
+        </DemoCard>
+
+        {/* Colors */}
+        <DemoCard title="Colors">
+          <div className="space-y-4">
+            <div>
+              <p className="text-xs text-gray-500 mb-2">Default</p>
+              <Accordion color="default">
+                <AccordionItem itemKey="default-1" title="Default Color">
+                  Default gray color scheme.
+                </AccordionItem>
+              </Accordion>
+            </div>
+            
+            <div>
+              <p className="text-xs text-gray-500 mb-2">Primary</p>
+              <Accordion color="primary">
+                <AccordionItem itemKey="primary-1" title="Primary Color">
+                  Blue color scheme for primary actions.
+                </AccordionItem>
+              </Accordion>
+            </div>
+            
+            <div>
+              <p className="text-xs text-gray-500 mb-2">Secondary</p>
+              <Accordion color="secondary">
+                <AccordionItem itemKey="secondary-1" title="Secondary Color">
+                  Purple color scheme for secondary elements.
+                </AccordionItem>
+              </Accordion>
+            </div>
+            
+            <div>
+              <p className="text-xs text-gray-500 mb-2">Success</p>
+              <Accordion color="success">
+                <AccordionItem itemKey="success-1" title="Success Color">
+                  Green color scheme for success states.
+                </AccordionItem>
+              </Accordion>
+            </div>
+            
+            <div>
+              <p className="text-xs text-gray-500 mb-2">Warning</p>
+              <Accordion color="warning">
+                <AccordionItem itemKey="warning-1" title="Warning Color">
+                  Amber color scheme for warning states.
+                </AccordionItem>
+              </Accordion>
+            </div>
+            
+            <div>
+              <p className="text-xs text-gray-500 mb-2">Danger</p>
+              <Accordion color="danger">
+                <AccordionItem itemKey="danger-1" title="Danger Color">
+                  Red color scheme for danger states.
+                </AccordionItem>
+              </Accordion>
+            </div>
+          </div>
+        </DemoCard>
+
+        {/* Multiple Selection */}
+        <DemoCard title="Multiple Selection">
+          <Accordion selectionMode="multiple" defaultExpandedKeys={["multi-1", "multi-3"]}>
+            <AccordionItem itemKey="multi-1" title="First Item">
+              <p>This item can be expanded simultaneously with others. Multiple selection mode allows several items to be open at once.</p>
+            </AccordionItem>
+            <AccordionItem itemKey="multi-2" title="Second Item">
+              <p>Independent expansion - this item's state doesn't affect others.</p>
+            </AccordionItem>
+            <AccordionItem itemKey="multi-3" title="Third Item">
+              <p>Also expandable independently. Notice how multiple items can remain open.</p>
+            </AccordionItem>
+            <AccordionItem itemKey="multi-4" title="Fourth Item">
+              <p>Another item that demonstrates the multiple selection capability.</p>
+            </AccordionItem>
+          </Accordion>
+          
+          <details>
+            <summary className="cursor-pointer text-blue-600 hover:text-blue-700">
+              Show code
+            </summary>
+            <div className="mt-2">
+              <CodeBlock code={multipleCode} />
+            </div>
+          </details>
+        </DemoCard>
+
+        {/* Controlled Accordion */}
+        <DemoCard title="Controlled Accordion">
+          <div className="space-y-4">
+            <div className="flex flex-wrap gap-2">
+              <button
+                onClick={() => setControlledKeys(['controlled-1'])}
+                className="px-3 py-1 text-sm bg-blue-100 text-blue-700 rounded hover:bg-blue-200"
+              >
+                Open First
+              </button>
+              <button
+                onClick={() => setControlledKeys(['controlled-2'])}
+                className="px-3 py-1 text-sm bg-blue-100 text-blue-700 rounded hover:bg-blue-200"
+              >
+                Open Second
+              </button>
+              <button
+                onClick={() => setControlledKeys(['controlled-1', 'controlled-2'])}
+                className="px-3 py-1 text-sm bg-green-100 text-green-700 rounded hover:bg-green-200"
+              >
+                Open Both
+              </button>
+              <button
+                onClick={() => setControlledKeys([])}
+                className="px-3 py-1 text-sm bg-red-100 text-red-700 rounded hover:bg-red-200"
+              >
+                Close All
+              </button>
+            </div>
+            
+            <Accordion
+              selectionMode="multiple"
+              expandedKeys={controlledKeys}
+              onExpandedChange={setControlledKeys}
+            >
+              <AccordionItem itemKey="controlled-1" title="Controlled Item 1">
+                <p>This accordion is controlled externally. The parent component manages which items are expanded.</p>
+              </AccordionItem>
+              <AccordionItem itemKey="controlled-2" title="Controlled Item 2">
+                <p>State is managed by the parent component. Use the buttons above to control expansion.</p>
+              </AccordionItem>
+            </Accordion>
+            
+            <p className="text-sm text-gray-600">
+              Current expanded keys: <code className="bg-gray-100 px-1 rounded">{JSON.stringify(controlledKeys)}</code>
+            </p>
+          </div>
+          
+          <details>
+            <summary className="cursor-pointer text-blue-600 hover:text-blue-700">
+              Show code
+            </summary>
+            <div className="mt-2">
+              <CodeBlock code={controlledCode} />
+            </div>
+          </details>
+        </DemoCard>
+
+        {/* Items Configuration */}
+        <DemoCard title="Items Configuration">
+          <Accordion 
+            items={faqItems}
+            variant="bordered"
+            color="primary"
+          />
+          
+          <details>
+            <summary className="cursor-pointer text-blue-600 hover:text-blue-700">
+              Show code
+            </summary>
+            <div className="mt-2">
+              <CodeBlock code={itemsCode} />
+            </div>
+          </details>
+        </DemoCard>
+
+        {/* Advanced Features */}
+        <DemoCard title="Advanced Features">
+          <div className="space-y-6">
+            <div>
+              <p className="text-sm font-medium text-gray-700 mb-2">Disabled State</p>
+              <Accordion isDisabled>
+                <AccordionItem itemKey="disabled-1" title="Disabled Accordion">
+                  This accordion is completely disabled.
+                </AccordionItem>
+              </Accordion>
+            </div>
+            
+            <div>
+              <p className="text-sm font-medium text-gray-700 mb-2">No Dividers</p>
+              <Accordion showDivider={false} variant="flat">
+                <AccordionItem itemKey="no-divider-1" title="No Dividers Item 1">
+                  Items without dividers between them.
+                </AccordionItem>
+                <AccordionItem itemKey="no-divider-2" title="No Dividers Item 2">
+                  Clean look without separator lines.
+                </AccordionItem>
+              </Accordion>
+            </div>
+            
+            <div>
+              <p className="text-sm font-medium text-gray-700 mb-2">Custom Radius</p>
+              <Accordion radius="xl" variant="shadow">
+                <AccordionItem itemKey="radius-1" title="Extra Large Radius">
+                  Accordion with extra large border radius.
+                </AccordionItem>
+              </Accordion>
+            </div>
+            
+            <div>
+              <p className="text-sm font-medium text-gray-700 mb-2">Indicator at Start</p>
+              <Accordion indicatorPlacement="start">
+                <AccordionItem itemKey="start-1" title="Indicator on Left">
+                  The chevron icon is positioned at the start.
+                </AccordionItem>
+              </Accordion>
+            </div>
+          </div>
+        </DemoCard>
+
+        {/* Animation Presets */}
+        <DemoCard title="🎬 Animation Presets">
+          <div className="space-y-6">
+            <div>
+              <p className="text-sm text-gray-600 mb-4">
+                Choose from 5 carefully crafted animation presets, each with unique timing and feel:
+              </p>
+            </div>
+            
+            <div className="space-y-6">
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <p className="text-sm font-medium text-gray-700">Spring (Default)</p>
+                  <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">0.4s • Balanced</span>
+                </div>
+                <p className="text-xs text-gray-500 mb-3">Professional feel with balanced spring physics</p>
+                <Accordion 
+                  animationConfig={{ preset: 'spring' }}
+                  variant="bordered" 
+                  color="primary"
+                >
+                  <AccordionItem itemKey="spring-1" title="Spring Animation Preset">
+                    <p>Balanced spring physics (280 stiffness, 25 damping) for professional interfaces. Perfect for most use cases.</p>
+                  </AccordionItem>
+                  <AccordionItem itemKey="spring-2" title="Natural Movement">
+                    <p>Creates natural, responsive feeling interactions that users expect from modern apps.</p>
+                  </AccordionItem>
+                </Accordion>
+              </div>
+              
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <p className="text-sm font-medium text-gray-700">Smooth</p>
+                  <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">0.5s • Polished</span>
+                </div>
+                <p className="text-xs text-gray-500 mb-3">Consistent and polished for elegant interfaces</p>
+                <Accordion 
+                  animationConfig={{ preset: 'smooth' }}
+                  variant="flat" 
+                  color="secondary"
+                >
+                  <AccordionItem itemKey="smooth-1" title="Smooth Animation Preset">
+                    <p>Medium spring settings (300 stiffness, 25 damping) create consistent, polished animations.</p>
+                  </AccordionItem>
+                  <AccordionItem itemKey="smooth-2" title="Elegant Interface">
+                    <p>Perfect for sophisticated, elegant user interfaces that need refined motion.</p>
+                  </AccordionItem>
+                </Accordion>
+              </div>
+              
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <p className="text-sm font-medium text-gray-700">Bouncy</p>
+                  <span className="text-xs bg-orange-100 text-orange-700 px-2 py-1 rounded">0.7s • Energetic</span>
+                </div>
+                <p className="text-xs text-gray-500 mb-3">Playful and dynamic for interactive experiences</p>
+                <Accordion 
+                  animationConfig={{ preset: 'bouncy' }}
+                  variant="shadow" 
+                  color="warning"
+                >
+                  <AccordionItem itemKey="bouncy-1" title="Bouncy Animation Preset">
+                    <p>High energy spring (500 stiffness, 15 damping) creates playful, dynamic interactions.</p>
+                  </AccordionItem>
+                  <AccordionItem itemKey="bouncy-2" title="Dynamic Experience">
+                    <p>Great for gaming interfaces, creative tools, or any app that wants energetic feedback.</p>
+                  </AccordionItem>
+                </Accordion>
+              </div>
+              
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <p className="text-sm font-medium text-gray-700">Tween</p>
+                  <span className="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded">0.6s • Gentle</span>
+                </div>
+                <p className="text-xs text-gray-500 mb-3">Softer, more gentle animations for elegant experiences</p>
+                <Accordion 
+                  animationConfig={{ preset: 'tween' }}
+                  variant="splitted" 
+                  color="success"
+                >
+                  <AccordionItem itemKey="tween-1" title="Tween Animation Preset">
+                    <p>Soft spring settings (200 stiffness, 20 damping) for gentle, elegant animations.</p>
+                  </AccordionItem>
+                  <AccordionItem itemKey="tween-2" title="Gentle Touch">
+                    <p>Ideal for content-focused applications that need subtle, non-distracting motion.</p>
+                  </AccordionItem>
+                </Accordion>
+              </div>
+              
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <p className="text-sm font-medium text-gray-700">Slow</p>
+                  <span className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded">0.8s • Deliberate</span>
+                </div>
+                <p className="text-xs text-gray-500 mb-3">Deliberate timing for accessibility and calm interfaces</p>
+                <Accordion 
+                  animationConfig={{ preset: 'slow' }}
+                  variant="bordered" 
+                  color="danger"
+                >
+                  <AccordionItem itemKey="slow-1" title="Slow Animation Preset">
+                    <p>Slower spring (180 stiffness, 35 damping) creates deliberate, accessible animations.</p>
+                  </AccordionItem>
+                  <AccordionItem itemKey="slow-2" title="Accessible Design">
+                    <p>Perfect for accessibility-focused apps or users who prefer reduced motion.</p>
+                  </AccordionItem>
+                </Accordion>
+              </div>
+            </div>
+            
+            <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+              <div className="flex items-start space-x-3">
+                <div className="text-blue-600 text-lg">💡</div>
+                <div>
+                  <p className="text-sm text-blue-800 font-medium">Custom Configuration</p>
+                  <p className="text-sm text-blue-700 mt-1">
+                    You can also override individual settings while using a preset, or create completely custom configurations.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <details>
+            <summary className="cursor-pointer text-blue-600 hover:text-blue-700">
+              Show preset usage code
+            </summary>
+            <div className="mt-2">
+              <CodeBlock code={`// Use animation presets
+<Accordion animationConfig={{ preset: 'bouncy' }}>
+  <AccordionItem title="Energetic Animation">Content</AccordionItem>
+</Accordion>
+
+<Accordion animationConfig={{ preset: 'slow' }}>
+  <AccordionItem title="Accessible Animation">Content</AccordionItem>
+</Accordion>
+
+// Override preset settings
+<Accordion animationConfig={{ 
+  preset: 'spring',
+  spring: { stiffness: 400 },
+  staggerDelay: 0.15 
+}}>
+  <AccordionItem title="Custom Spring">Content</AccordionItem>
+</Accordion>
+
+// Available presets:
+// - spring: Balanced (350 stiffness, 30 damping, 0.45s)
+// - smooth: Polished (300 stiffness, 25 damping, 0.5s)
+// - bouncy: Energetic (500 stiffness, 15 damping, 0.7s)
+// - tween: Gentle (200 stiffness, 20 damping, 0.6s)
+// - slow: Deliberate (180 stiffness, 35 damping, 0.8s)`} />
+            </div>
+          </details>
+        </DemoCard>
+
+        {/* Framer Motion Animations */}
+        <DemoCard title="Enhanced Framer Motion Animations">
+          <div className="space-y-6">
+            <div>
+              <p className="text-sm text-gray-600 mb-4">
+                ✨ Now powered by <strong>Framer Motion</strong> for smoother, more professional animations including:
+              </p>
+              <ul className="list-disc list-inside space-y-1 ml-4 text-sm text-gray-600 mb-4">
+                <li><strong>Spring-based animations</strong> for natural movement</li>
+                <li><strong>Stagger effects</strong> when multiple items render</li>
+                <li><strong>Smooth chevron rotations</strong> with micro-interactions</li>
+                <li><strong>Content slide & scale effects</strong> for polished feel</li>
+                <li><strong>Hover & tap animations</strong> for better user feedback</li>
+              </ul>
+            </div>
+            
+            <div>
+              <p className="text-sm font-medium text-gray-700 mb-2">Stagger Animation Demo</p>
+              <p className="text-xs text-gray-500 mb-3">Notice how items animate in sequence when the page loads</p>
+              <Accordion 
+                variant="shadow" 
+                color="primary"
+                selectionMode="multiple"
+                animationConfig={{ preset: 'spring', staggerDelay: 0.12 }}
+              >
+                <AccordionItem itemKey="stagger-1" title="🚀 First Item - Spring Animation">
+                  <div className="space-y-2">
+                    <p>This item uses spring-based animations for natural movement.</p>
+                    <p className="text-sm text-gray-600">The content slides and scales smoothly when expanding.</p>
+                  </div>
+                </AccordionItem>
+                <AccordionItem itemKey="stagger-2" title="⚡ Second Item - Micro-interactions">
+                  <div className="space-y-2">
+                    <p>Notice the subtle hover effects on the header and chevron icon.</p>
+                    <p className="text-sm text-gray-600">The chevron rotates with a spring animation instead of CSS transitions.</p>
+                  </div>
+                </AccordionItem>
+                <AccordionItem itemKey="stagger-3" title="🎨 Third Item - Smooth Scaling">
+                  <div className="space-y-2">
+                    <p>Content has enhanced opacity and scaling transitions.</p>
+                    <p className="text-sm text-gray-600">Everything feels more responsive and polished.</p>
+                  </div>
+                </AccordionItem>
+                <AccordionItem itemKey="stagger-4" title="💫 Fourth Item - Complete Experience">
+                  <div className="space-y-2">
+                    <p>The combination of all animations creates a premium user experience.</p>
+                    <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
+                      <p className="text-sm text-blue-800">
+                        <strong>Try this:</strong> Hover over headers, click to expand/collapse, and notice the smooth, natural animations throughout!
+                      </p>
+                    </div>
+                  </div>
+                </AccordionItem>
+              </Accordion>
+            </div>
+            
+            <div>
+              <p className="text-sm font-medium text-gray-700 mb-2">Animation Performance</p>
+              <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                <div className="flex items-start space-x-3">
+                  <div className="text-green-600 text-lg">⚡</div>
+                  <div>
+                    <p className="text-sm text-green-800 font-medium">Optimized for Performance</p>
+                    <p className="text-sm text-green-700 mt-1">
+                      Framer Motion uses hardware acceleration and intelligent batching to ensure 
+                      smooth 60fps animations even with multiple accordions on the page.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <details>
+            <summary className="cursor-pointer text-blue-600 hover:text-blue-700">
+              Show implementation details
+            </summary>
+            <div className="mt-2">
+              <CodeBlock code={`// Enhanced with Framer Motion
+<Accordion variant="shadow" color="primary" animationConfig={{ preset: 'spring' }}>
+  <AccordionItem itemKey="item-1" title="Spring Animations">
+    Content with smooth spring-based expand/collapse
+  </AccordionItem>
+</Accordion>
+
+// Features include:
+// - 5 animation presets (spring, smooth, bouncy, tween, slow)
+// - Stagger animations on mount
+// - Spring-based height transitions  
+// - Chevron rotation with physics
+// - Hover/tap micro-interactions
+// - Content slide & scale effects`} />
+            </div>
+          </details>
+        </DemoCard>
+      </div>
+
+      {/* Performance Test */}
+      <DemoCard title="🚀 Performance Test - Multiple Presets">
+        <div className="space-y-4">
+          <p className="text-gray-600">
+            Testing performance with multiple accordions using different animation presets simultaneously. 
+            All animations should maintain 60fps even with multiple instances.
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <p className="text-xs font-medium text-gray-700 mb-2">Spring + Bouncy Presets</p>
+              <div className="space-y-2">
+                <Accordion 
+                  animationConfig={{ preset: 'spring' }}
+                  variant="flat" 
+                  color="primary"
+                  size="sm"
+                >
+                  <AccordionItem itemKey="perf-spring-1" title="Spring Performance Test">
+                    <p>Testing spring preset performance with smooth 60fps animations.</p>
+                  </AccordionItem>
+                  <AccordionItem itemKey="perf-spring-2" title="Multiple Items">
+                    <p>Each item should animate independently without frame drops.</p>
+                  </AccordionItem>
+                </Accordion>
+                
+                <Accordion 
+                  animationConfig={{ preset: 'bouncy' }}
+                  variant="bordered" 
+                  color="warning"
+                  size="sm"
+                >
+                  <AccordionItem itemKey="perf-bouncy-1" title="Bouncy Performance Test">
+                    <p>High-energy bouncy animations should remain smooth.</p>
+                  </AccordionItem>
+                  <AccordionItem itemKey="perf-bouncy-2" title="Complex Physics">
+                    <p>Complex spring physics optimized for performance.</p>
+                  </AccordionItem>
+                </Accordion>
+              </div>
+            </div>
+            
+            <div>
+              <p className="text-xs font-medium text-gray-700 mb-2">Smooth + Slow Presets</p>
+              <div className="space-y-2">
+                <Accordion 
+                  animationConfig={{ preset: 'smooth' }}
+                  variant="shadow" 
+                  color="secondary"
+                  size="sm"
+                >
+                  <AccordionItem itemKey="perf-smooth-1" title="Smooth Performance Test">
+                    <p>Consistent smooth animations across multiple instances.</p>
+                  </AccordionItem>
+                  <AccordionItem itemKey="perf-smooth-2" title="Polished Feel">
+                    <p>Maintains elegant timing even under load.</p>
+                  </AccordionItem>
+                </Accordion>
+                
+                <Accordion 
+                  animationConfig={{ preset: 'slow' }}
+                  variant="splitted" 
+                  color="danger"
+                  size="sm"
+                >
+                  <AccordionItem itemKey="perf-slow-1" title="Slow Performance Test">
+                    <p>Deliberate timing remains consistent and accessible.</p>
+                  </AccordionItem>
+                  <AccordionItem itemKey="perf-slow-2" title="Accessibility Focus">
+                    <p>Reduced motion that's still visually appealing.</p>
+                  </AccordionItem>
+                </Accordion>
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+            <div className="flex items-start space-x-3">
+              <div className="text-green-600 text-lg">✅</div>
+              <div>
+                <p className="text-sm text-green-800 font-medium">Performance Verified</p>
+                <p className="text-sm text-green-700 mt-1">
+                  Framer Motion's optimization ensures all presets maintain smooth 60fps animations, 
+                  even with multiple accordions and different physics settings on the same page.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </DemoCard>
+
+        {/* Full Example */}
+        <DemoCard title="Complete FAQ Example">
+          <div className="space-y-4">
+            <p className="text-gray-600">
+              A real-world example showing a complete FAQ section with multiple items and professional styling using the spring preset.
+            </p>
+            
+            <Accordion
+              animationConfig={{ preset: 'spring', staggerDelay: 0.08 }}
+              variant="splitted"
+              color="primary"
+              size="md"
+              defaultExpandedKeys={["faq-complete-1"]}
+            >
+              <AccordionItem itemKey="faq-complete-1" title="How do I get started?">
+                <div className="space-y-2">
+                  <p>Getting started is easy! Follow these simple steps:</p>
+                  <ol className="list-decimal list-inside space-y-1 ml-4">
+                    <li>Create an account on our platform</li>
+                    <li>Complete your profile information</li>
+                    <li>Choose a plan that suits your needs</li>
+                    <li>Start using our services immediately</li>
+                  </ol>
+                </div>
+              </AccordionItem>
+              
+              <AccordionItem itemKey="faq-complete-2" title="What payment methods do you accept?">
+                <div className="space-y-2">
+                  <p>We accept all major payment methods:</p>
+                  <ul className="list-disc list-inside space-y-1 ml-4">
+                    <li>Credit cards (Visa, MasterCard, American Express)</li>
+                    <li>PayPal</li>
+                    <li>Bank transfers</li>
+                    <li>Digital wallets (Apple Pay, Google Pay)</li>
+                  </ul>
+                </div>
+              </AccordionItem>
+              
+              <AccordionItem itemKey="faq-complete-3" title="Is there a free trial available?">
+                <p>
+                  Yes! We offer a 14-day free trial for all new users. No credit card required. 
+                  You can explore all features and decide if our platform is right for you.
+                </p>
+              </AccordionItem>
+              
+              <AccordionItem itemKey="faq-complete-4" title="How can I contact support?">
+                <div className="space-y-2">
+                  <p>Our support team is available 24/7 through multiple channels:</p>
+                  <ul className="list-disc list-inside space-y-1 ml-4">
+                    <li>Live chat on our website</li>
+                    <li>Email: support@example.com</li>
+                    <li>Phone: +1 (555) 123-4567</li>
+                    <li>Help center with detailed guides</li>
+                  </ul>
+                </div>
+              </AccordionItem>
+              
+              <AccordionItem itemKey="faq-complete-5" title="Can I upgrade or downgrade my plan?">
+                <p>
+                  Absolutely! You can change your plan at any time from your account settings. 
+                  Upgrades take effect immediately, while downgrades will take effect at the end of your current billing cycle.
+                </p>
+              </AccordionItem>
+            </Accordion>
+          </div>
+        </DemoCard>
+      </div>
+
+      // {/* Props Reference */}
+
+      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border mt-8">
+        <h2 className="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-4">
+          Props Reference
+        </h2>
+        <p className="text-gray-600 dark:text-gray-300 mb-6">
+          Complete reference of all available props for the Accordion component.
+        </p>
+        
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse">
+            <thead>
+              <tr className="border-b border-gray-200 dark:border-gray-600">
+                <th className="text-left py-3 px-4 font-semibold text-gray-700 dark:text-gray-200">Prop</th>
+                <th className="text-left py-3 px-4 font-semibold text-gray-700 dark:text-gray-200">Type</th>
+                <th className="text-left py-3 px-4 font-semibold text-gray-700 dark:text-gray-200">Default</th>
+                <th className="text-left py-3 px-4 font-semibold text-gray-700 dark:text-gray-200">Description</th>
+              </tr>
+            </thead>
+            <tbody className="text-sm">
+              <tr className="border-b border-gray-100 dark:border-gray-700">
+                <td className="py-3 px-4 font-mono text-purple-600 dark:text-purple-400">children</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-300">ReactNode</td>
+                <td className="py-3 px-4 text-gray-500 dark:text-gray-400">-</td>
+                <td className="py-3 px-4 text-gray-700 dark:text-gray-200">Children components (AccordionItem)</td>
+              </tr>
+              <tr className="border-b border-gray-100 dark:border-gray-700">
+                <td className="py-3 px-4 font-mono text-purple-600 dark:text-purple-400">items</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-300">AccordionItemConfig[]</td>
+                <td className="py-3 px-4 text-gray-500 dark:text-gray-400">-</td>
+                <td className="py-3 px-4 text-gray-700 dark:text-gray-200">Accordion items configuration array</td>
+              </tr>
+              <tr className="border-b border-gray-100 dark:border-gray-700">
+                <td className="py-3 px-4 font-mono text-purple-600 dark:text-purple-400">variant</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-300">'flat' | 'bordered' | 'shadow' | 'splitted'</td>
+                <td className="py-3 px-4 text-gray-500 dark:text-gray-400">'flat'</td>
+                <td className="py-3 px-4 text-gray-700 dark:text-gray-200">Visual style variant</td>
+              </tr>
+              <tr className="border-b border-gray-100 dark:border-gray-700">
+                <td className="py-3 px-4 font-mono text-purple-600 dark:text-purple-400">color</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-300">'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger'</td>
+                <td className="py-3 px-4 text-gray-500 dark:text-gray-400">'default'</td>
+                <td className="py-3 px-4 text-gray-700 dark:text-gray-200">Color theme for the accordion</td>
+              </tr>
+              <tr className="border-b border-gray-100 dark:border-gray-700">
+                <td className="py-3 px-4 font-mono text-purple-600 dark:text-purple-400">size</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-300">'xs' | 'sm' | 'md' | 'lg' | 'xl'</td>
+                <td className="py-3 px-4 text-gray-500 dark:text-gray-400">'md'</td>
+                <td className="py-3 px-4 text-gray-700 dark:text-gray-200">Size variant for spacing and padding</td>
+              </tr>
+              <tr className="border-b border-gray-100 dark:border-gray-700">
+                <td className="py-3 px-4 font-mono text-purple-600 dark:text-purple-400">radius</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-300">'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full'</td>
+                <td className="py-3 px-4 text-gray-500 dark:text-gray-400">'md'</td>
+                <td className="py-3 px-4 text-gray-700 dark:text-gray-200">Border radius variant</td>
+              </tr>
+              <tr className="border-b border-gray-100 dark:border-gray-700">
+                <td className="py-3 px-4 font-mono text-purple-600 dark:text-purple-400">selectionMode</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-300">'single' | 'multiple' | 'none'</td>
+                <td className="py-3 px-4 text-gray-500 dark:text-gray-400">'single'</td>
+                <td className="py-3 px-4 text-gray-700 dark:text-gray-200">Selection behavior mode</td>
+              </tr>
+              <tr className="border-b border-gray-100 dark:border-gray-700">
+                <td className="py-3 px-4 font-mono text-purple-600 dark:text-purple-400">defaultExpandedKeys</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-300">string[]</td>
+                <td className="py-3 px-4 text-gray-500 dark:text-gray-400">-</td>
+                <td className="py-3 px-4 text-gray-700 dark:text-gray-200">Default expanded items (uncontrolled)</td>
+              </tr>
+              <tr className="border-b border-gray-100 dark:border-gray-700">
+                <td className="py-3 px-4 font-mono text-purple-600 dark:text-purple-400">expandedKeys</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-300">string[]</td>
+                <td className="py-3 px-4 text-gray-500 dark:text-gray-400">-</td>
+                <td className="py-3 px-4 text-gray-700 dark:text-gray-200">Controlled expanded items</td>
+              </tr>
+              <tr className="border-b border-gray-100 dark:border-gray-700">
+                <td className="py-3 px-4 font-mono text-purple-600 dark:text-purple-400">onExpandedChange</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-300">(keys: string[]) =&gt; void</td>
+                <td className="py-3 px-4 text-gray-500 dark:text-gray-400">-</td>
+                <td className="py-3 px-4 text-gray-700 dark:text-gray-200">Callback when expansion changes</td>
+              </tr>
+              <tr className="border-b border-gray-100 dark:border-gray-700">
+                <td className="py-3 px-4 font-mono text-purple-600 dark:text-purple-400">onSelectionChange</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-300">(key: string) =&gt; void</td>
+                <td className="py-3 px-4 text-gray-500 dark:text-gray-400">-</td>
+                <td className="py-3 px-4 text-gray-700 dark:text-gray-200">Callback for single selection changes</td>
+              </tr>
+              <tr className="border-b border-gray-100 dark:border-gray-700">
+                <td className="py-3 px-4 font-mono text-purple-600 dark:text-purple-400">indicatorPlacement</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-300">'start' | 'end'</td>
+                <td className="py-3 px-4 text-gray-500 dark:text-gray-400">'end'</td>
+                <td className="py-3 px-4 text-gray-700 dark:text-gray-200">Position of expand/collapse indicator</td>
+              </tr>
+              <tr className="border-b border-gray-100 dark:border-gray-700">
+                <td className="py-3 px-4 font-mono text-purple-600 dark:text-purple-400">itemPlacement</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-300">'start' | 'end' | 'outside'</td>
+                <td className="py-3 px-4 text-gray-500 dark:text-gray-400">'start'</td>
+                <td className="py-3 px-4 text-gray-700 dark:text-gray-200">Item placement position</td>
+              </tr>
+              <tr className="border-b border-gray-100 dark:border-gray-700">
+                <td className="py-3 px-4 font-mono text-purple-600 dark:text-purple-400">isDisabled</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-300">boolean</td>
+                <td className="py-3 px-4 text-gray-500 dark:text-gray-400">false</td>
+                <td className="py-3 px-4 text-gray-700 dark:text-gray-200">Whether the accordion is disabled</td>
+              </tr>
+              <tr className="border-b border-gray-100 dark:border-gray-700">
+                <td className="py-3 px-4 font-mono text-purple-600 dark:text-purple-400">isCompact</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-300">boolean</td>
+                <td className="py-3 px-4 text-gray-500 dark:text-gray-400">false</td>
+                <td className="py-3 px-4 text-gray-700 dark:text-gray-200">Whether to use compact mode</td>
+              </tr>
+              <tr className="border-b border-gray-100 dark:border-gray-700">
+                <td className="py-3 px-4 font-mono text-purple-600 dark:text-purple-400">showDivider</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-300">boolean</td>
+                <td className="py-3 px-4 text-gray-500 dark:text-gray-400">true</td>
+                <td className="py-3 px-4 text-gray-700 dark:text-gray-200">Whether to show dividers between items</td>
+              </tr>
+              <tr className="border-b border-gray-100 dark:border-gray-700">
+                <td className="py-3 px-4 font-mono text-purple-600 dark:text-purple-400">disableAnimation</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-300">boolean</td>
+                <td className="py-3 px-4 text-gray-500 dark:text-gray-400">false</td>
+                <td className="py-3 px-4 text-gray-700 dark:text-gray-200">Whether to disable animations</td>
+              </tr>
+              <tr className="border-b border-gray-100 dark:border-gray-700">
+                <td className="py-3 px-4 font-mono text-purple-600 dark:text-purple-400">disableIndicatorAnimation</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-300">boolean</td>
+                <td className="py-3 px-4 text-gray-500 dark:text-gray-400">false</td>
+                <td className="py-3 px-4 text-gray-700 dark:text-gray-200">Whether to disable indicator animations</td>
+              </tr>
+              <tr className="border-b border-gray-100 dark:border-gray-700">
+                <td className="py-3 px-4 font-mono text-purple-600 dark:text-purple-400">keepContentMounted</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-300">boolean</td>
+                <td className="py-3 px-4 text-gray-500 dark:text-gray-400">false</td>
+                <td className="py-3 px-4 text-gray-700 dark:text-gray-200">Keep content mounted when collapsed</td>
+              </tr>
+              <tr className="border-b border-gray-100 dark:border-gray-700">
+                <td className="py-3 px-4 font-mono text-purple-600 dark:text-purple-400">animationConfig</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-300">AccordionAnimationConfig</td>
+                <td className="py-3 px-4 text-gray-500 dark:text-gray-400">-</td>
+                <td className="py-3 px-4 text-gray-700 dark:text-gray-200">Framer Motion animation configuration</td>
+              </tr>
+              <tr className="border-b border-gray-100 dark:border-gray-700">
+                <td className="py-3 px-4 font-mono text-purple-600 dark:text-purple-400">className</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-300">string</td>
+                <td className="py-3 px-4 text-gray-500 dark:text-gray-400">-</td>
+                <td className="py-3 px-4 text-gray-700 dark:text-gray-200">Additional CSS classes</td>
+              </tr>
+              <tr className="border-b border-gray-100 dark:border-gray-700">
+                <td className="py-3 px-4 font-mono text-purple-600 dark:text-purple-400">style</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-300">React.CSSProperties</td>
+                <td className="py-3 px-4 text-gray-500 dark:text-gray-400">-</td>
+                <td className="py-3 px-4 text-gray-700 dark:text-gray-200">Custom inline styles</td>
+              </tr>
+              <tr className="border-b border-gray-100 dark:border-gray-700">
+                <td className="py-3 px-4 font-mono text-purple-600 dark:text-purple-400">aria-label</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-300">string</td>
+                <td className="py-3 px-4 text-gray-500 dark:text-gray-400">'Accordion'</td>
+                <td className="py-3 px-4 text-gray-700 dark:text-gray-200">ARIA label for accessibility</td>
+              </tr>
+              <tr className="border-b border-gray-100 dark:border-gray-700">
+                <td className="py-3 px-4 font-mono text-purple-600 dark:text-purple-400">data-testid</td>
+                <td className="py-3 px-4 text-gray-600 dark:text-gray-300">string</td>
+                <td className="py-3 px-4 text-gray-500 dark:text-gray-400">-</td>
+                <td className="py-3 px-4 text-gray-700 dark:text-gray-200">Test ID for testing purposes</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        {/* Animation Config Sub-section */}
+        <div className="mt-8">
+          <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-4">
+            Animation Configuration
+          </h3>
+          <p className="text-gray-600 dark:text-gray-300 mb-4">
+            The <code className="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-sm">animationConfig</code> prop accepts the following structure:
+          </p>
+          
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="border-b border-gray-200 dark:border-gray-600">
+                  <th className="text-left py-3 px-4 font-semibold text-gray-700 dark:text-gray-200">Property</th>
+                  <th className="text-left py-3 px-4 font-semibold text-gray-700 dark:text-gray-200">Type</th>
+                  <th className="text-left py-3 px-4 font-semibold text-gray-700 dark:text-gray-200">Default</th>
+                  <th className="text-left py-3 px-4 font-semibold text-gray-700 dark:text-gray-200">Description</th>
+                </tr>
+              </thead>
+              <tbody className="text-sm">
+                <tr className="border-b border-gray-100 dark:border-gray-700">
+                  <td className="py-3 px-4 font-mono text-purple-600 dark:text-purple-400">preset</td>
+                  <td className="py-3 px-4 text-gray-600 dark:text-gray-300">'spring' | 'smooth' | 'bouncy' | 'tween' | 'slow'</td>
+                  <td className="py-3 px-4 text-gray-500 dark:text-gray-400">'spring'</td>
+                  <td className="py-3 px-4 text-gray-700 dark:text-gray-200">Animation preset with predefined settings</td>
+                </tr>
+                <tr className="border-b border-gray-100 dark:border-gray-700">
+                  <td className="py-3 px-4 font-mono text-purple-600 dark:text-purple-400">spring.stiffness</td>
+                  <td className="py-3 px-4 text-gray-600 dark:text-gray-300">number</td>
+                  <td className="py-3 px-4 text-gray-500 dark:text-gray-400">350</td>
+                  <td className="py-3 px-4 text-gray-700 dark:text-gray-200">Spring animation stiffness</td>
+                </tr>
+                <tr className="border-b border-gray-100 dark:border-gray-700">
+                  <td className="py-3 px-4 font-mono text-purple-600 dark:text-purple-400">spring.damping</td>
+                  <td className="py-3 px-4 text-gray-600 dark:text-gray-300">number</td>
+                  <td className="py-3 px-4 text-gray-500 dark:text-gray-400">30</td>
+                  <td className="py-3 px-4 text-gray-700 dark:text-gray-200">Spring animation damping</td>
+                </tr>
+                <tr className="border-b border-gray-100 dark:border-gray-700">
+                  <td className="py-3 px-4 font-mono text-purple-600 dark:text-purple-400">spring.duration</td>
+                  <td className="py-3 px-4 text-gray-600 dark:text-gray-300">number</td>
+                  <td className="py-3 px-4 text-gray-500 dark:text-gray-400">0.45</td>
+                  <td className="py-3 px-4 text-gray-700 dark:text-gray-200">Spring animation duration in seconds</td>
+                </tr>
+                <tr className="border-b border-gray-100 dark:border-gray-700">
+                  <td className="py-3 px-4 font-mono text-purple-600 dark:text-purple-400">staggerDelay</td>
+                  <td className="py-3 px-4 text-gray-600 dark:text-gray-300">number</td>
+                  <td className="py-3 px-4 text-gray-500 dark:text-gray-400">0.1</td>
+                  <td className="py-3 px-4 text-gray-700 dark:text-gray-200">Delay between item animations in seconds</td>
+                </tr>
+                <tr className="border-b border-gray-100 dark:border-gray-700">
+                  <td className="py-3 px-4 font-mono text-purple-600 dark:text-purple-400">enableStagger</td>
+                  <td className="py-3 px-4 text-gray-600 dark:text-gray-300">boolean</td>
+                  <td className="py-3 px-4 text-gray-500 dark:text-gray-400">true</td>
+                  <td className="py-3 px-4 text-gray-700 dark:text-gray-200">Enable stagger animation for multiple items</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      </>
+  );
+};
+
+export default AccordionPage;

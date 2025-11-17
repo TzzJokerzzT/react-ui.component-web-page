@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Popover Test</title>
+</head>
+<body>
+    <h1>Testing Popover Component</h1>
+    <p>This is a simple test to check if the popover is working</p>
+    
+    <script>
+        // Simple test to check if our dev server is running
+        fetch('http://localhost:5173/popover-test')
+            .then(response => {
+                if (response.ok) {
+                    console.log('✅ Dev server is running');
+                    window.location.href = 'http://localhost:5173/popover-test';
+                } else {
+                    console.log('❌ Dev server not responding properly');
+                }
+            })
+            .catch(error => {
+                console.log('❌ Cannot reach dev server:', error);
+            });
+    </script>
+</body>
+</html>

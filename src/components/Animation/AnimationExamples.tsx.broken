@@ -1,0 +1,1409 @@
+import { useState } from 'react';
+import { FadeIn, SlideIn, ScaleIn, RotateIn, Bounce, Stagger } from './';
+
+/**
+ * AnimationExamples component showcasing all animation components
+ * Demonstrates different configurations, triggers, and use cases
+ */
+export const AnimationExamples = () => {
+  const [manualTrigger, setManualTrigger] = useState(false);
+  const [staggerItems] = useState([
+    'Elemento 1', 'Elemento 2', 'Elemento 3', 'Elemento 4', 'Elemento 5'
+  ]);
+
+  const cardStyle = "bg-white p-6 rounded-lg shadow-md border border-gray-200";
+  const sectionStyle = "space-y-6";
+  const headerStyle = "text-2xl font-bold text-gray-800 mb-4";
+  const subHeaderStyle = "text-lg font-semibold text-gray-700 mb-3";
+  const demoBoxStyle = "bg-gradient-to-r from-blue-500 to-purple-600 p-4 rounded-lg text-white font-semibold text-center";
+  const exampleGridStyle = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4";
+
+  return (
+    <div className="space-y-12 p-6">
+      {/* Header */}
+      <div className="space-y-4">
+        <h1 className="text-4xl font-bold text-gray-900">
+          Componentes de Animación con Framer Motion
+        </h1>
+        <p className="text-gray-600 text-lg">
+          Una colección completa de componentes de animación listos para usar con Framer Motion.
+          Cada componente incluye múltiples configuraciones y ejemplos prácticos.
+        </p>
+      </div>
+
+      {/* FadeIn Animations */}
+      <section className={sectionStyle}>
+        <h2 className={headerStyle}>🌅 FadeIn - Animaciones de Aparición</h2>
+        
+        <div className={cardStyle}>
+          <h3 className={subHeaderStyle}>Básico - Aparición suave</h3>
+          <div className={exampleGridStyle}>
+            <FadeIn delay={0}>
+              <div className={demoBoxStyle}>FadeIn Inmediato</div>
+            </FadeIn>
+            <FadeIn delay={0.2}>
+              <div className={demoBoxStyle}>FadeIn con 0.2s delay</div>
+            </FadeIn>
+            <FadeIn delay={0.4} duration={1}>
+              <div className={demoBoxStyle}>FadeIn lento (1s)</div>
+            </FadeIn>
+          </div>
+        </div>
+
+        {/* Manual Control Code Examples */}
+        <div className={cardStyle}>
+          <h3 className={subHeaderStyle}>📝 Ejemplos de Código</h3>
+          
+          <div className="space-y-8">
+            {/* Basic Manual Control */}
+            <div>
+              <h4 className="text-lg font-semibold text-gray-800 mb-3">Control Manual Básico</h4>
+              <div className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
+                <pre><code>{`// Control manual con estado local
+import { useState } from 'react';
+import { FadeIn, SlideIn } from '@/components/Animation';
+
+function ManualControlExample() {
+  const [showAnimation, setShowAnimation] = useState(false);
+
+  return (
+    <div>
+      <button 
+        onClick={() => setShowAnimation(!showAnimation)}
+        className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+      >
+        {showAnimation ? 'Ocultar' : 'Mostrar'} Animación
+      </button>
+      
+      {showAnimation && (
+        <div className="space-y-4 mt-4">
+          <FadeIn key={showAnimation.toString()}>
+            <div className="p-4 bg-blue-100 rounded">
+              FadeIn controlado manualmente
+            </div>
+          </FadeIn>
+          <SlideIn key={`slide-${showAnimation.toString()}`} direction="right">
+            <div className="p-4 bg-green-100 rounded">
+              SlideIn controlado manualmente
+            </div>
+          </SlideIn>
+        </div>
+      )}
+    </div>
+  );
+}`}</code></pre>
+              </div>
+            </div>
+
+            {/* Advanced Manual Control */}
+            <div>
+              <h4 className="text-lg font-semibold text-gray-800 mb-3">Control con Diferentes Triggers</h4>
+              <div className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
+                <pre><code>{`// Control con diferentes métodos de activación
+function AdvancedControlExample() {
+  const [triggerState, setTriggerState] = useState({
+    hover: false,
+    click: false,
+    focus: false
+  });
+
+  return (
+    <div className="space-y-6">
+      {/* Hover Trigger */}
+      <div 
+        onMouseEnter={() => setTriggerState(prev => ({...prev, hover: true}))}
+        onMouseLeave={() => setTriggerState(prev => ({...prev, hover: false}))}
+        className="p-4 border-2 border-dashed border-gray-300 rounded"
+      >
+        <p>Hover sobre esta área</p>
+        {triggerState.hover && (
+          <FadeIn key="hover">
+            <div className="mt-2 p-2 bg-yellow-100 rounded">
+              Animación activada por hover
+            </div>
+          </FadeIn>
+        )}
+      </div>
+
+      {/* Click Trigger */}
+      <button
+        onClick={() => setTriggerState(prev => ({...prev, click: !prev.click}))}
+        className="w-full p-4 border-2 border-blue-300 rounded hover:bg-blue-50"
+      >
+        Click para activar animación
+        {triggerState.click && (
+          <ScaleIn key={triggerState.click.toString()}>
+            <div className="mt-2 p-2 bg-blue-100 rounded">
+              ¡Animación activada por click!
+            </div>
+          </ScaleIn>
+        )}
+      </button>
+    </div>
+  );
+}`}</code></pre>
+              </div>
+            </div>
+
+            {/* Conditional Animation */}
+            <div>
+              <h4 className="text-lg font-semibold text-gray-800 mb-3">Animación Condicional</h4>
+              <div className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
+                <pre><code>{`// Animaciones basadas en condiciones del estado
+function ConditionalAnimationExample() {
+  const [status, setStatus] = useState('idle'); // 'idle', 'loading', 'success', 'error'
+
+  const handleAction = async () => {
+    setStatus('loading');
+    try {
+      await someAsyncOperation();
+      setStatus('success');
+    } catch (error) {
+      setStatus('error');
+    }
+  };
+
+  return (
+    <div className="space-y-4">
+      <button 
+        onClick={handleAction}
+        disabled={status === 'loading'}
+        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
+      >
+        Ejecutar Acción
+      </button>
+
+      {/* Loading Animation */}
+      {status === 'loading' && (
+        <Bounce key="loading" amplitude={5} frequency={2}>
+          <div className="p-4 bg-yellow-100 rounded">
+            ⏳ Cargando...
+          </div>
+        </Bounce>
+      )}
+
+      {/* Success Animation */}
+      {status === 'success' && (
+        <SlideIn key="success" direction="up">
+          <div className="p-4 bg-green-100 text-green-800 rounded">
+            ✅ ¡Operación completada con éxito!
+          </div>
+        </SlideIn>
+      )}
+
+      {/* Error Animation */}
+      {status === 'error' && (
+        <FadeIn key="error">
+          <div className="p-4 bg-red-100 text-red-800 rounded">
+            ❌ Error en la operación
+          </div>
+        </FadeIn>
+      )}
+    </div>
+  );
+}`}</code></pre>
+              </div>
+            </div>
+
+            {/* Dynamic Animation Sequences */}
+            <div>
+              <h4 className="text-lg font-semibold text-gray-800 mb-3">Secuencias de Animación</h4>
+              <div className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
+                <pre><code>{`// Crear secuencias de animación controladas
+function AnimationSequenceExample() {
+  const [step, setStep] = useState(0);
+
+  const nextStep = () => setStep(prev => prev + 1);
+  const resetSequence = () => setStep(0);
+
+  return (
+    <div className="space-y-4">
+      <div className="space-x-2">
+        <button 
+          onClick={nextStep}
+          className="px-4 py-2 bg-blue-600 text-white rounded"
+        >
+          Siguiente Paso
+        </button>
+        <button 
+          onClick={resetSequence}
+          className="px-4 py-2 bg-gray-600 text-white rounded"
+        >
+          Reiniciar
+        </button>
+      </div>
+
+      <div className="space-y-4">
+        {step >= 1 && (
+          <FadeIn key="step1">
+            <div className="p-4 bg-blue-100 rounded">
+              Paso 1: FadeIn
+            </div>
+          </FadeIn>
+        )}
+        
+        {step >= 2 && (
+          <SlideIn key="step2" direction="left" delay={200}>
+            <div className="p-4 bg-green-100 rounded">
+              Paso 2: SlideIn con delay
+            </div>
+          </SlideIn>
+        )}
+        
+        {step >= 3 && (
+          <ScaleIn key="step3" delay={400}>
+            <div className="p-4 bg-purple-100 rounded">
+              Paso 3: ScaleIn con más delay
+            </div>
+          </ScaleIn>
+        )}
+      </div>
+    </div>
+  );
+}`}</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SlideIn Animations */}
+      <section className={sectionStyle}>
+        <h2 className={headerStyle}>↗️ SlideIn - Animaciones Deslizantes</h2>
+        
+        <div className={cardStyle}>
+          <h3 className={subHeaderStyle}>Direcciones básicas</h3>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <SlideIn direction="up" delay={0}>
+              <div className={demoBoxStyle}>⬆️ Desde Abajo</div>
+            </SlideIn>
+            <SlideIn direction="down" delay={0.1}>
+              <div className={demoBoxStyle}>⬇️ Desde Arriba</div>
+            </SlideIn>
+            <SlideIn direction="left" delay={0.2}>
+              <div className={demoBoxStyle}>⬅️ Desde Derecha</div>
+            </SlideIn>
+            <SlideIn direction="right" delay={0.3}>
+              <div className={demoBoxStyle}>➡️ Desde Izquierda</div>
+            </SlideIn>
+          </div>
+        </div>
+
+        <div className={cardStyle}>
+          <h3 className={subHeaderStyle}>Distancias personalizadas</h3>
+          <div className={exampleGridStyle}>
+            <SlideIn direction="up" distance={20}>
+              <div className={demoBoxStyle}>Distancia corta (20px)</div>
+            </SlideIn>
+            <SlideIn direction="up" distance={100}>
+              <div className={demoBoxStyle}>Distancia larga (100px)</div>
+            </SlideIn>
+            <SlideIn direction="left" distance={200}>
+              <div className={demoBoxStyle}>Distancia muy larga (200px)</div>
+            </SlideIn>
+          </div>
+        </div>
+
+        {/* SlideIn Code Examples */}
+        <div className={cardStyle}>
+          <h3 className={subHeaderStyle}>📝 Ejemplos de Código</h3>
+          
+          <div className="space-y-6">
+            <div>
+              <h4 className="text-md font-medium text-gray-700 mb-2">Direcciones Básicas</h4>
+              <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
+                <pre className="text-sm text-gray-800 dark:text-gray-200 overflow-x-auto">
+                  <code>{`import { SlideIn } from './components/Animation';
+
+// Deslizar desde abajo (por defecto)
+<SlideIn direction="up">
+  <div>Desliza desde abajo</div>
+</SlideIn>
+
+// Deslizar desde arriba
+<SlideIn direction="down">
+  <div>Desliza desde arriba</div>
+</SlideIn>
+
+// Deslizar desde la derecha
+<SlideIn direction="left">
+  <div>Desliza desde la derecha</div>
+</SlideIn>
+
+// Deslizar desde la izquierda
+<SlideIn direction="right">
+  <div>Desliza desde la izquierda</div>
+</SlideIn>`}</code>
+                </pre>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="text-md font-medium text-gray-700 mb-2">Distancias Personalizadas</h4>
+              <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
+                <pre className="text-sm text-gray-800 dark:text-gray-200 overflow-x-auto">
+                  <code>{`// Distancia corta
+<SlideIn direction="up" distance={20}>
+  <div>Movimiento sutil de 20px</div>
+</SlideIn>
+
+// Distancia media (por defecto es 50px)
+<SlideIn direction="left" distance={100}>
+  <div>Movimiento moderado de 100px</div>
+</SlideIn>
+
+// Distancia larga
+<SlideIn direction="right" distance={200}>
+  <div>Movimiento dramático de 200px</div>
+</SlideIn>
+
+// Con delay escalonado
+<SlideIn direction="up" delay={0} distance={60}>
+  <div>Primer elemento</div>
+</SlideIn>
+<SlideIn direction="up" delay={0.1} distance={60}>
+  <div>Segundo elemento</div>
+</SlideIn>`}</code>
+                </pre>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="text-md font-medium text-gray-700 mb-2">Configuración Avanzada</h4>
+              <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
+                <pre className="text-sm text-gray-800 dark:text-gray-200 overflow-x-auto">
+                  <code>{`// Combinando con otras propiedades
+<SlideIn 
+  direction="up" 
+  distance={80}
+  duration={0.6}
+  delay={0.2}
+  threshold={0.3}
+>
+  <div>Configuración completa</div>
+</SlideIn>
+
+// Para triggers interactivos
+<SlideIn direction="left" trigger="hover" distance={30}>
+  <button>Hover para deslizar</button>
+</SlideIn>`}</code>
+                </pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ScaleIn Animations */}
+      <section className={sectionStyle}>
+        <h2 className={headerStyle}>🔍 ScaleIn - Animaciones de Escala</h2>
+        
+        <div className={cardStyle}>
+          <h3 className={subHeaderStyle}>Escalas básicas</h3>
+          <div className={exampleGridStyle}>
+            <ScaleIn from={0} to={1}>
+              <div className={demoBoxStyle}>Escala completa</div>
+            </ScaleIn>
+            <ScaleIn from={0.5} to={1}>
+              <div className={demoBoxStyle}>Desde 50%</div>
+            </ScaleIn>
+            <ScaleIn from={0} to={1.2} transformOrigin="top left">
+              <div className={demoBoxStyle}>120% desde esquina</div>
+            </ScaleIn>
+          </div>
+        </div>
+
+        <div className={cardStyle}>
+          <h3 className={subHeaderStyle}>Interacciones (hover y tap)</h3>
+          <div className={exampleGridStyle}>
+            <ScaleIn trigger="hover">
+              <div className={`${demoBoxStyle} cursor-pointer`}>
+                Hover para crecer
+              </div>
+            </ScaleIn>
+            <ScaleIn trigger="tap">
+              <div className={`${demoBoxStyle} cursor-pointer`}>
+                Click para escalar
+              </div>
+            </ScaleIn>
+          </div>
+        </div>
+
+        {/* ScaleIn Code Examples */}
+        <div className={cardStyle}>
+          <h3 className={subHeaderStyle}>📝 Ejemplos de Código</h3>
+          
+          <div className="space-y-6">
+            <div>
+              <h4 className="text-md font-medium text-gray-700 mb-2">Escalas Básicas</h4>
+              <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
+                <pre className="text-sm text-gray-800 dark:text-gray-200 overflow-x-auto">
+                  <code>{`import { ScaleIn } from './components/Animation';
+
+// Escala completa desde 0 (por defecto)
+<ScaleIn>
+  <div>Aparece creciendo desde 0</div>
+</ScaleIn>
+
+// Escala desde 50%
+<ScaleIn from={0.5} to={1}>
+  <div>Crece desde la mitad del tamaño</div>
+</ScaleIn>
+
+// Escala hasta 120% (más grande que el original)
+<ScaleIn from={0} to={1.2}>
+  <div>Crece hasta ser 20% más grande</div>
+</ScaleIn>`}</code>
+                </pre>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="text-md font-medium text-gray-700 mb-2">Transform Origin (Punto de Origen)</h4>
+              <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
+                <pre className="text-sm text-gray-800 dark:text-gray-200 overflow-x-auto">
+                  <code>{`// Crece desde el centro (por defecto)
+<ScaleIn transformOrigin="center">
+  <div>Crece uniformemente desde el centro</div>
+</ScaleIn>
+
+// Crece desde la esquina superior izquierda
+<ScaleIn transformOrigin="top left">
+  <div>Crece desde la esquina superior izquierda</div>
+</ScaleIn>
+
+// Crece desde la esquina inferior derecha
+<ScaleIn transformOrigin="bottom right">
+  <div>Crece desde la esquina inferior derecha</div>
+</ScaleIn>
+
+// Otras opciones: "top", "bottom", "left", "right"
+<ScaleIn transformOrigin="top" from={0.8} to={1}>
+  <div>Crece desde la parte superior</div>
+</ScaleIn>`}</code>
+                </pre>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="text-md font-medium text-gray-700 mb-2">Triggers Interactivos</h4>
+              <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
+                <pre className="text-sm text-gray-800 dark:text-gray-200 overflow-x-auto">
+                  <code>{`// Escalar al hacer hover
+<ScaleIn trigger="hover" from={1} to={1.1}>
+  <button>Hover para crecer 10%</button>
+</ScaleIn>
+
+// Escalar al hacer click
+<ScaleIn trigger="tap" from={1} to={0.95}>
+  <button>Click para efecto de presión</button>
+</ScaleIn>
+
+// Configuración avanzada con interacción
+<ScaleIn 
+  trigger="hover" 
+  from={0.9} 
+  to={1.05}
+  duration={0.2}
+  transformOrigin="center"
+>
+  <div>Hover para efecto elegante</div>
+</ScaleIn>`}</code>
+                </pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* RotateIn Animations */}
+      <section className={sectionStyle}>
+        <h2 className={headerStyle}>🌀 RotateIn - Animaciones Rotativas</h2>
+        
+        <div className={cardStyle}>
+          <h3 className={subHeaderStyle}>Direcciones de rotación</h3>
+          <div className={exampleGridStyle}>
+            <RotateIn direction="clockwise" degrees={180}>
+              <div className={demoBoxStyle}>↻ 180° Horario</div>
+            </RotateIn>
+            <RotateIn direction="counterclockwise" degrees={180}>
+              <div className={demoBoxStyle}>↺ 180° Anti-horario</div>
+            </RotateIn>
+            <RotateIn direction="clockwise" degrees={360} duration={1}>
+              <div className={demoBoxStyle}>↻ 360° Lento</div>
+            </RotateIn>
+          </div>
+        </div>
+
+        <div className={cardStyle}>
+          <h3 className={subHeaderStyle}>Puntos de origen de transformación</h3>
+          <div className={exampleGridStyle}>
+            <RotateIn degrees={90} transformOrigin="top left">
+              <div className={demoBoxStyle}>Rota desde esquina superior izquierda</div>
+            </RotateIn>
+            <RotateIn degrees={90} transformOrigin="bottom right">
+              <div className={demoBoxStyle}>Rota desde esquina inferior derecha</div>
+            </RotateIn>
+          </div>
+        </div>
+
+        {/* RotateIn Code Examples */}
+        <div className={cardStyle}>
+          <h3 className={subHeaderStyle}>📝 Ejemplos de Código</h3>
+          
+          <div className="space-y-6">
+            <div>
+              <h4 className="text-md font-medium text-gray-700 mb-2">Direcciones de Rotación</h4>
+              <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
+                <pre className="text-sm text-gray-800 dark:text-gray-200 overflow-x-auto">
+                  <code>{`import { RotateIn } from './components/Animation';
+
+// Rotación en sentido horario (por defecto)
+<RotateIn direction="clockwise" degrees={180}>
+  <div>Rota 180° en sentido horario</div>
+</RotateIn>
+
+// Rotación en sentido anti-horario
+<RotateIn direction="counterclockwise" degrees={180}>
+  <div>Rota 180° en sentido anti-horario</div>
+</RotateIn>
+
+// Rotación completa lenta
+<RotateIn direction="clockwise" degrees={360} duration={1}>
+  <div>Rotación completa en 1 segundo</div>
+</RotateIn>
+
+// Rotación rápida (90 grados por defecto es 180)
+<RotateIn degrees={90}>
+  <div>Rotación de cuarto de vuelta</div>
+</RotateIn>`}</code>
+                </pre>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="text-md font-medium text-gray-700 mb-2">Transform Origin (Punto de Rotación)</h4>
+              <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
+                <pre className="text-sm text-gray-800 dark:text-gray-200 overflow-x-auto">
+                  <code>{`// Rotación desde el centro (por defecto)
+<RotateIn degrees={45} transformOrigin="center">
+  <div>Rota desde el centro</div>
+</RotateIn>
+
+// Rotación desde esquina superior izquierda
+<RotateIn degrees={90} transformOrigin="top left">
+  <div>Rota como una puerta abriéndose</div>
+</RotateIn>
+
+// Rotación desde esquina inferior derecha  
+<RotateIn degrees={90} transformOrigin="bottom right">
+  <div>Rota desde esquina inferior derecha</div>
+</RotateIn>
+
+// Rotación desde un borde
+<RotateIn degrees={30} transformOrigin="left">
+  <div>Rota desde el borde izquierdo</div>
+</RotateIn>`}</code>
+                </pre>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="text-md font-medium text-gray-700 mb-2">Configuraciones Avanzadas</h4>
+              <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
+                <pre className="text-sm text-gray-800 dark:text-gray-200 overflow-x-auto">
+                  <code>{`// Rotación con delay y duración personalizada
+<RotateIn 
+  direction="clockwise" 
+  degrees={270}
+  duration={0.8}
+  delay={0.3}
+  transformOrigin="center"
+>
+  <div>Rotación customizada completa</div>
+</RotateIn>
+
+// Para triggers interactivos
+<RotateIn trigger="hover" degrees={15}>
+  <button>Hover para rotar ligeramente</button>
+</RotateIn>
+
+// Rotación continua (usando degrees altos)
+<RotateIn degrees={720} duration={2}>
+  <div>Doble rotación completa</div>
+</RotateIn>`}</code>
+                </pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Bounce Animations */}
+      <section className={sectionStyle}>
+        <h2 className={headerStyle}>⚡ Bounce - Animaciones Rebotantes</h2>
+        
+        <div className={cardStyle}>
+          <h3 className={subHeaderStyle}>Diferentes amplitudes y frecuencias</h3>
+          <div className={exampleGridStyle}>
+            <Bounce amplitude={10} frequency={1}>
+              <div className={demoBoxStyle}>Rebote suave</div>
+            </Bounce>
+            <Bounce amplitude={30} frequency={2}>
+              <div className={demoBoxStyle}>Rebote medio (2x)</div>
+            </Bounce>
+            <Bounce amplitude={40} frequency={3} damping={0.6}>
+              <div className={demoBoxStyle}>Rebote fuerte (3x)</div>
+            </Bounce>
+          </div>
+        </div>
+
+        <div className={cardStyle}>
+          <h3 className={subHeaderStyle}>Triggers interactivos</h3>
+          <div className={exampleGridStyle}>
+            <Bounce trigger="hover" amplitude={20}>
+              <div className={`${demoBoxStyle} cursor-pointer`}>
+                Hover para rebotar
+              </div>
+            </Bounce>
+            <Bounce trigger="tap" amplitude={25} frequency={2}>
+              <div className={`${demoBoxStyle} cursor-pointer`}>
+                Click para doble rebote
+              </div>
+            </Bounce>
+          </div>
+        </div>
+
+        {/* Bounce Code Examples */}
+        <div className={cardStyle}>
+          <h3 className={subHeaderStyle}>📝 Ejemplos de Código</h3>
+          
+          <div className="space-y-6">
+            <div>
+              <h4 className="text-md font-medium text-gray-700 mb-2">Rebotes Básicos</h4>
+              <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
+                <pre className="text-sm text-gray-800 dark:text-gray-200 overflow-x-auto">
+                  <code>{`import { Bounce } from './components/Animation';
+
+// Rebote suave (por defecto: amplitude=1, frequency=1)
+<Bounce>
+  <div>Rebote básico</div>
+</Bounce>
+
+// Rebote con amplitud personalizada
+<Bounce amplitude={10}>
+  <div>Rebote suave con amplitud 10</div>
+</Bounce>
+
+// Rebote con mayor amplitud
+<Bounce amplitude={30}>
+  <div>Rebote más pronunciado</div>
+</Bounce>
+
+// Rebote intenso
+<Bounce amplitude={40}>
+  <div>Rebote muy intenso</div>
+</Bounce>`}</code>
+                </pre>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="text-md font-medium text-gray-700 mb-2">Frecuencia y Damping</h4>
+              <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
+                <pre className="text-sm text-gray-800 dark:text-gray-200 overflow-x-auto">
+                  <code>{`// Frecuencia simple (1 rebote)
+<Bounce amplitude={20} frequency={1}>
+  <div>Un solo rebote</div>
+</Bounce>
+
+// Doble rebote
+<Bounce amplitude={30} frequency={2}>
+  <div>Doble rebote</div>
+</Bounce>
+
+// Triple rebote
+<Bounce amplitude={40} frequency={3}>
+  <div>Triple rebote</div>
+</Bounce>
+
+// Rebote con amortiguación personalizada
+<Bounce amplitude={35} frequency={3} damping={0.6}>
+  <div>Rebote amortiguado (más suave)</div>
+</Bounce>
+
+// Rebote más elástico (menos amortiguación)
+<Bounce amplitude={30} frequency={2} damping={0.3}>
+  <div>Rebote más elástico</div>
+</Bounce>`}</code>
+                </pre>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="text-md font-medium text-gray-700 mb-2">Triggers Interactivos</h4>
+              <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
+                <pre className="text-sm text-gray-800 dark:text-gray-200 overflow-x-auto">
+                  <code>{`// Rebote al hacer hover
+<Bounce trigger="hover" amplitude={20}>
+  <button>Hover para rebotar</button>
+</Bounce>
+
+// Rebote al hacer click
+<Bounce trigger="tap" amplitude={25} frequency={2}>
+  <button>Click para doble rebote</button>
+</Bounce>
+
+// Configuración completa interactiva
+<Bounce 
+  trigger="hover" 
+  amplitude={15}
+  frequency={1}
+  damping={0.8}
+  duration={0.6}
+>
+  <div>Rebote elegante al hover</div>
+</Bounce>
+
+// Para efectos de feedback en botones
+<Bounce trigger="tap" amplitude={10} frequency={1} damping={0.9}>
+  <button>Botón con feedback de rebote</button>
+</Bounce>`}</code>
+                </pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Stagger Animations */}
+      <section className={sectionStyle}>
+        <h2 className={headerStyle}>📋 Stagger - Animaciones Escalonadas</h2>
+        
+        <div className={cardStyle}>
+          <h3 className={subHeaderStyle}>Lista con FadeIn escalonado</h3>
+          <Stagger animationType="fadeIn" staggerDelay={0.1}>
+            {staggerItems.map((item, index) => (
+              <div key={index} className={`${demoBoxStyle} mb-2`}>
+                {item}
+              </div>
+            ))}
+          </Stagger>
+        </div>
+
+        <div className={cardStyle}>
+          <h3 className={subHeaderStyle}>Grid con SlideIn escalonado</h3>
+          <Stagger 
+            animationType="slideIn" 
+            direction="left" 
+            staggerDelay={0.15}
+            className="grid grid-cols-2 md:grid-cols-3 gap-4"
+          >
+            {['Card 1', 'Card 2', 'Card 3', 'Card 4', 'Card 5', 'Card 6'].map((item, index) => (
+              <div key={index} className={demoBoxStyle}>
+                {item}
+              </div>
+            ))}
+          </Stagger>
+        </div>
+
+        <div className={cardStyle}>
+          <h3 className={subHeaderStyle}>Botones con ScaleIn escalonado</h3>
+          <Stagger 
+            animationType="scaleIn" 
+            staggerDelay={0.1}
+            className="flex flex-wrap gap-3"
+          >
+            {['Inicio', 'Servicios', 'Productos', 'Contacto', 'Blog'].map((item, index) => (
+              <button 
+                key={index} 
+                className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                {item}
+              </button>
+            ))}
+          </Stagger>
+        </div>
+
+        {/* Stagger Code Examples */}
+        <div className={cardStyle}>
+          <h3 className={subHeaderStyle}>📝 Ejemplos de Código</h3>
+          
+          <div className="space-y-8">
+            {/* Basic Stagger */}
+            <div>
+              <h4 className="text-lg font-semibold text-gray-800 mb-3">Stagger Básico</h4>
+              <div className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
+                <pre><code>{`// Lista con FadeIn escalonado
+import { Stagger } from '@/components/Animation';
+
+const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
+
+<Stagger animationType="fadeIn" staggerDelay={0.1}>
+  {items.map((item, index) => (
+    <div key={index} className="p-4 bg-blue-100 rounded mb-2">
+      {item}
+    </div>
+  ))}
+</Stagger>`}</code></pre>
+              </div>
+            </div>
+
+            {/* Grid Stagger */}
+            <div>
+              <h4 className="text-lg font-semibold text-gray-800 mb-3">Grid con Animación Escalonada</h4>
+              <div className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
+                <pre><code>{`// Grid responsive con SlideIn escalonado
+<Stagger 
+  animationType="slideIn" 
+  direction="left" 
+  staggerDelay={0.15}
+  className="grid grid-cols-2 md:grid-cols-3 gap-4"
+>
+  {cardData.map((card, index) => (
+    <div key={index} className="p-6 bg-white rounded-lg shadow">
+      <h3>{card.title}</h3>
+      <p>{card.description}</p>
+    </div>
+  ))}
+</Stagger>`}</code></pre>
+              </div>
+            </div>
+
+            {/* Navigation Menu */}
+            <div>
+              <h4 className="text-lg font-semibold text-gray-800 mb-3">Menú de Navegación</h4>
+              <div className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
+                <pre><code>{`// Botones de navegación con ScaleIn escalonado
+const menuItems = ['Inicio', 'Servicios', 'Productos', 'Contacto'];
+
+<Stagger 
+  animationType="scaleIn" 
+  staggerDelay={0.1}
+  className="flex flex-wrap gap-3"
+>
+  {menuItems.map((item, index) => (
+    <button 
+      key={index} 
+      className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+      onClick={() => handleNavigation(item)}
+    >
+      {item}
+    </button>
+  ))}
+</Stagger>`}</code></pre>
+              </div>
+            </div>
+
+            {/* Advanced Configuration */}
+            <div>
+              <h4 className="text-lg font-semibold text-gray-800 mb-3">Configuración Avanzada</h4>
+              <div className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
+                <pre><code>{`// Stagger con configuración completa
+<Stagger 
+  animationType="slideIn"
+  direction="up"
+  distance={50}
+  staggerDelay={0.2}
+  duration={800}
+  easing="cubic-bezier(0.4, 0, 0.2, 1)"
+  trigger="intersection"
+  threshold={0.3}
+  className="space-y-4"
+>
+  {blogPosts.map((post, index) => (
+    <article key={post.id} className="p-6 bg-white rounded-lg shadow-lg">
+      <h2 className="text-xl font-bold mb-2">{post.title}</h2>
+      <p className="text-gray-600 mb-4">{post.excerpt}</p>
+      <time className="text-sm text-gray-500">{post.date}</time>
+    </article>
+  ))}
+</Stagger>`}</code></pre>
+              </div>
+            </div>
+
+            {/* Mixed Animation Types */}
+            <div>
+              <h4 className="text-lg font-semibold text-gray-800 mb-3">Combinando Tipos de Animación</h4>
+              <div className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
+                <pre><code>{`// Usando Stagger con RotateIn para efectos únicos
+<Stagger 
+  animationType="rotateIn" 
+  direction="clockwise"  
+  degrees={180}
+  staggerDelay={0.25}
+  transformOrigin="center"
+  className="grid grid-cols-4 gap-4"
+>
+  {icons.map((icon, index) => (
+    <div 
+      key={index} 
+      className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center"
+    >
+      <Icon name={icon} className="text-white text-2xl" />
+    </div>
+  ))}
+</Stagger>`}</code></pre>
+              </div>
+            </div>
+
+            {/* Performance Tips */}
+            <div>
+              <h4 className="text-lg font-semibold text-gray-800 mb-3">Consejos de Rendimiento</h4>
+              <div className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
+                <pre><code>{`// Optimizando Stagger para listas largas
+<Stagger 
+  animationType="fadeIn" 
+  staggerDelay={0.05} // Delay más corto para listas largas
+  maxItems={20}       // Limitar animaciones simultáneas
+  disableReducedMotion={false} // Respetar preferencias del usuario
+>
+  {largeDataSet.slice(0, 20).map((item, index) => (
+    <LazyLoadedComponent key={item.id} data={item} />
+  ))}
+</Stagger>
+
+// Para listas muy largas, considera paginación
+{showMore && (
+  <Stagger animationType="slideIn" direction="up">
+    {largeDataSet.slice(20, 40).map((item, index) => (
+      <LazyLoadedComponent key={item.id} data={item} />
+    ))}
+  </Stagger>
+)}`}</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Manual Control Example */}
+      <section className={sectionStyle}>
+        <h2 className={headerStyle}>🎮 Control Manual</h2>
+        
+        <div className={cardStyle}>
+          <h3 className={subHeaderStyle}>Trigger manual con botones</h3>
+          <div className="space-y-4">
+            <div className="space-x-4">
+              <button 
+                onClick={() => setManualTrigger(!manualTrigger)}
+                className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+              >
+                {manualTrigger ? 'Ocultar' : 'Mostrar'} Animación
+              </button>
+            </div>
+            
+            {manualTrigger && (
+              <div className="space-y-4">
+                <FadeIn key={manualTrigger.toString()}>
+                  <div className={demoBoxStyle}>FadeIn controlado manualmente</div>
+                </FadeIn>
+                <SlideIn key={`slide-${manualTrigger.toString()}`} direction="right">
+                  <div className={demoBoxStyle}>SlideIn controlado manualmente</div>
+                </SlideIn>
+                <ScaleIn key={`scale-${manualTrigger.toString()}`}>
+                  <div className={demoBoxStyle}>ScaleIn controlado manualmente</div>
+                </ScaleIn>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Performance Options */}
+      <section className={sectionStyle}>
+        <h2 className={headerStyle}>⚙️ Opciones de Rendimiento</h2>
+        
+        <div className={cardStyle}>
+          <h3 className={subHeaderStyle}>Animaciones deshabilitadas</h3>
+          <p className="text-gray-600 mb-4">
+            Útil para usuarios que prefieren reducir las animaciones o para mejorar el rendimiento.
+          </p>
+          <div className={exampleGridStyle}>
+            <FadeIn disabled>
+              <div className={demoBoxStyle}>FadeIn deshabilitado</div>
+            </FadeIn>
+            <SlideIn disabled direction="up">
+              <div className={demoBoxStyle}>SlideIn deshabilitado</div>
+            </SlideIn>
+            <ScaleIn disabled>
+              <div className={demoBoxStyle}>ScaleIn deshabilitado</div>
+            </ScaleIn>
+          </div>
+        </div>
+      </section>
+
+      {/* Best Practices */}
+      <section className={sectionStyle}>
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+          <h2 className="text-xl font-bold text-blue-800 mb-4">
+            💡 Mejores Prácticas
+          </h2>
+          <ul className="space-y-2 text-blue-700">
+            <li>• Usa <code className="bg-blue-100 px-2 py-1 rounded">once=true</code> para animaciones que solo deben ejecutarse una vez</li>
+            <li>• Ajusta el <code className="bg-blue-100 px-2 py-1 rounded">threshold</code> según cuándo quieres que se active la animación</li>
+            <li>• Utiliza <code className="bg-blue-100 px-2 py-1 rounded">disabled</code> para respetar las preferencias de accesibilidad del usuario</li>
+            <li>• Combina diferentes animaciones para crear efectos únicos</li>
+            <li>• Usa <code className="bg-blue-100 px-2 py-1 rounded">Stagger</code> para listas y grids para mejor experiencia visual</li>
+            <li>• Considera el rendimiento: evita animar muchos elementos simultáneamente</li>
+          </ul>
+        </div>
+      </section>
+
+      {/* Props Reference */}
+      <section className="max-w-6xl mx-auto">
+        <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6 text-center">
+          Props Reference
+        </h2>
+        
+        {/* FadeIn Component */}
+        <div className="mb-12">
+          <h3 className="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-4">FadeIn</h3>
+          <p className="text-gray-600 dark:text-gray-300 mb-4">
+            Animates opacity from transparent to opaque with customizable timing and triggers.
+          </p>
+          <div className="overflow-x-auto bg-white dark:bg-gray-800 rounded-lg shadow">
+            <table className="min-w-full">
+              <thead className="bg-gray-50 dark:bg-gray-700">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Prop</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Type</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Default</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Description</th>
+                </tr>
+              </thead>
+              <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-600">
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">children</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">ReactNode</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">-</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">Content to animate (required)</td>
+                </tr>
+                <tr className="bg-gray-50 dark:bg-gray-700">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">className</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">string</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">""</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">CSS classes to apply</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">delay</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">number</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">0</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">Delay before animation starts (seconds)</td>
+                </tr>
+                <tr className="bg-gray-50 dark:bg-gray-700">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">duration</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">number</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">0.3</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">Animation duration (seconds)</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">disabled</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">boolean</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">false</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">Disable animation for accessibility</td>
+                </tr>
+                <tr className="bg-gray-50 dark:bg-gray-700">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">trigger</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">"hover" | "tap" | "inView" | "manual"</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">"inView"</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">Animation trigger type</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">once</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">boolean</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">true</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">Run animation only once</td>
+                </tr>
+                <tr className="bg-gray-50 dark:bg-gray-700">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">threshold</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">number</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">0.1</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">Intersection threshold for inView trigger</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">from</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">number</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">0</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">Starting opacity value</td>
+                </tr>
+                <tr className="bg-gray-50 dark:bg-gray-700">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">to</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">number</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">1</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">Ending opacity value</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">style</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">React.CSSProperties</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">-</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">Inline styles to apply</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* SlideIn Component */}
+        <div className="mb-12">
+          <h3 className="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-4">SlideIn</h3>
+          <p className="text-gray-600 dark:text-gray-300 mb-4">
+            Animates element position from a specified direction with customizable distance and timing.
+          </p>
+          <div className="overflow-x-auto bg-white dark:bg-gray-800 rounded-lg shadow">
+            <table className="min-w-full">
+              <thead className="bg-gray-50 dark:bg-gray-700">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Prop</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Type</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Default</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Description</th>
+                </tr>
+              </thead>
+              <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-600">
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">direction</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">"up" | "down" | "left" | "right"</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">"up"</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">Direction to slide from</td>
+                </tr>
+                <tr className="bg-gray-50 dark:bg-gray-700">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">distance</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">number</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">50</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">Distance to slide in pixels</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+            <em>Inherits all BaseAnimationProps (children, className, delay, duration, disabled, trigger, once, threshold, style)</em>
+          </p>
+        </div>
+
+        {/* ScaleIn Component */}
+        <div className="mb-12">
+          <h3 className="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-4">ScaleIn</h3>
+          <p className="text-gray-600 dark:text-gray-300 mb-4">
+            Animates element scale from a specified size with customizable transform origin.
+          </p>
+          <div className="overflow-x-auto bg-white dark:bg-gray-800 rounded-lg shadow">
+            <table className="min-w-full">
+              <thead className="bg-gray-50 dark:bg-gray-700">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Prop</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Type</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Default</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Description</th>
+                </tr>
+              </thead>
+              <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-600">
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">from</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">number</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">0</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">Starting scale value</td>
+                </tr>
+                <tr className="bg-gray-50 dark:bg-gray-700">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">to</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">number</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">1</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">Ending scale value</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">transformOrigin</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">string</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">"center"</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">Transform origin point</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+            <em>Inherits all BaseAnimationProps (children, className, delay, duration, disabled, trigger, once, threshold, style)</em>
+          </p>
+        </div>
+
+        {/* RotateIn Component */}
+        <div className="mb-12">
+          <h3 className="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-4">RotateIn</h3>
+          <p className="text-gray-600 dark:text-gray-300 mb-4">
+            Animates element rotation with customizable direction, degrees, and transform origin.
+          </p>
+          <div className="overflow-x-auto bg-white dark:bg-gray-800 rounded-lg shadow">
+            <table className="min-w-full">
+              <thead className="bg-gray-50 dark:bg-gray-700">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Prop</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Type</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Default</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Description</th>
+                </tr>
+              </thead>
+              <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-600">
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">direction</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">"clockwise" | "counterclockwise"</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">"clockwise"</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">Rotation direction</td>
+                </tr>
+                <tr className="bg-gray-50 dark:bg-gray-700">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">degrees</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">number</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">180</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">Rotation degrees</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">transformOrigin</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">string</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">"center"</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">Transform origin point</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+            <em>Inherits all BaseAnimationProps (children, className, delay, duration, disabled, trigger, once, threshold, style)</em>
+          </p>
+        </div>
+
+        {/* Bounce Component */}
+        <div className="mb-12">
+          <h3 className="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-4">Bounce</h3>
+          <p className="text-gray-600 dark:text-gray-300 mb-4">
+            Creates bouncing animations with customizable amplitude, frequency, and damping.
+          </p>
+          <div className="overflow-x-auto bg-white dark:bg-gray-800 rounded-lg shadow">
+            <table className="min-w-full">
+              <thead className="bg-gray-50 dark:bg-gray-700">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Prop</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Type</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Default</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Description</th>
+                </tr>
+              </thead>
+              <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-600">
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">amplitude</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">number</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">1</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">Bounce amplitude</td>
+                </tr>
+                <tr className="bg-gray-50 dark:bg-gray-700">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">frequency</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">number</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">1</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">Bounce frequency</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">damping</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">number</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">10</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">Bounce damping factor</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+            <em>Inherits all BaseAnimationProps (children, className, delay, duration, disabled, trigger, once, threshold, style)</em>
+          </p>
+        </div>
+
+        {/* Stagger Component */}
+        <div className="mb-12">
+          <h3 className="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-4">Stagger</h3>
+          <p className="text-gray-600 dark:text-gray-300 mb-4">
+            Animates multiple children with staggered timing for sequential effects.
+          </p>
+          <div className="overflow-x-auto bg-white dark:bg-gray-800 rounded-lg shadow">
+            <table className="min-w-full">
+              <thead className="bg-gray-50 dark:bg-gray-700">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Prop</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Type</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Default</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Description</th>
+                </tr>
+              </thead>
+              <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-600">
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">children</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">ReactNode[]</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">-</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">Array of child elements to stagger (required)</td>
+                </tr>
+                <tr className="bg-gray-50 dark:bg-gray-700">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">className</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">string</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">""</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">CSS classes to apply to container</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">staggerDelay</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">number</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">0.1</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">Delay between each child animation (seconds)</td>
+                </tr>
+                <tr className="bg-gray-50 dark:bg-gray-700">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">animationType</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">"fadeIn" | "slideIn" | "scaleIn" | "rotateIn" | "bounce"</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">"fadeIn"</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">Type of animation for children</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">direction</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">"up" | "down" | "left" | "right"</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">"up"</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">Direction for slideIn animations</td>
+                </tr>
+                <tr className="bg-gray-50 dark:bg-gray-700">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">duration</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">number</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">0.3</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">Duration of each child animation (seconds)</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">threshold</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">number</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">0.1</td>
+                  <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">Intersection threshold for inView trigger</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Type Definitions */}
+        <div className="mb-12">
+          <h3 className="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-4">Type Definitions</h3>
+          <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
+            <pre className="text-sm text-gray-800 dark:text-gray-200 overflow-x-auto">
+              <code>{`// Base Animation Props (inherited by most components)
+interface BaseAnimationProps {
+  children: ReactNode;
+  className?: string;
+  delay?: number;
+  duration?: number;
+  disabled?: boolean;
+  trigger?: 'hover' | 'tap' | 'inView' | 'manual';
+  once?: boolean;
+  threshold?: number;
+  style?: React.CSSProperties;
+}
+
+// Direction Types
+type SlideDirection = 'up' | 'down' | 'left' | 'right';
+type RotateDirection = 'clockwise' | 'counterclockwise';
+
+// Animation Types
+type AnimationType = 'fadeIn' | 'slideIn' | 'scaleIn' | 'rotateIn' | 'bounce' | 'stagger';`}</code>
+            </pre>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+export default AnimationExamples;

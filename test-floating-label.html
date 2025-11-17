@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floating Label Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Test styles to mimic our component behavior */
+        .test-input-container {
+            position: relative;
+            width: 300px;
+            margin: 20px;
+        }
+        
+        .test-label {
+            position: absolute;
+            left: 0.75rem;
+            transition: all 200ms;
+            pointer-events: none;
+            z-index: 10;
+            font-size: 0.875rem;
+            color: rgb(115 115 115);
+            top: 50%;
+            transform: translateY(-50%);
+            transform-origin: left;
+        }
+        
+        .test-label.floated {
+            font-size: 0.75rem;
+            transform: scale(0.85) translateY(-1.875rem);
+            padding-left: 0.25rem;
+            padding-right: 0.25rem;
+            background-color: rgb(255 255 255);
+            color: rgb(82 82 82);
+        }
+        
+        .test-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            outline: none;
+        }
+        
+        .test-input:focus {
+            border-color: #3b82f6;
+        }
+    </style>
+</head>
+<body class="p-8 bg-gray-50">
+    <h1 class="text-2xl font-bold mb-8">Floating Label Animation Test</h1>
+    
+    <div class="space-y-8">
+        <div>
+            <h2 class="text-lg font-semibold mb-4">Expected Behavior (Manual Test)</h2>
+            <div class="test-input-container">
+                <label id="test-label" class="test-label">Email Address</label>
+                <input 
+                    id="test-input" 
+                    class="test-input" 
+                    type="email" 
+                    placeholder=""
+                >
+            </div>
+            <p class="text-sm text-gray-600 mt-2">
+                Label should float up when input is focused or has value
+            </p>
+        </div>
+        
+        <div>
+            <h2 class="text-lg font-semibold mb-4">Test Instructions</h2>
+            <ol class="list-decimal list-inside space-y-2 text-sm text-gray-700">
+                <li>Click on the input field - label should animate up</li>
+                <li>Type some text - label should stay up</li>
+                <li>Clear the text and click outside - label should animate down</li>
+                <li>Focus the input again - label should animate up immediately</li>
+            </ol>
+        </div>
+        
+        <div>
+            <h2 class="text-lg font-semibold mb-4">Component State Debug</h2>
+            <div id="debug-info" class="text-sm font-mono bg-white p-4 border rounded">
+                <div>Focused: <span id="focused-state">false</span></div>
+                <div>Has Value: <span id="value-state">false</span></div>
+                <div>Should Float: <span id="float-state">false</span></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const input = document.getElementById('test-input');
+        const label = document.getElementById('test-label');
+        const focusedState = document.getElementById('focused-state');
+        const valueState = document.getElementById('value-state');
+        const floatState = document.getElementById('float-state');
+        
+        let isFocused = false;
+        let hasValue = false;
+        
+        function updateState() {
+            hasValue = input.value.length > 0;
+            const shouldFloat = isFocused || hasValue;
+            
+            // Update debug info
+            focusedState.textContent = isFocused;
+            valueState.textContent = hasValue;
+            floatState.textContent = shouldFloat;
+            
+            // Update label
+            if (shouldFloat) {
+                label.classList.add('floated');
+                input.placeholder = 'Enter your email';
+            } else {
+                label.classList.remove('floated');
+                input.placeholder = '';
+            }
+        }
+        
+        input.addEventListener('focus', () => {
+            isFocused = true;
+            updateState();
+        });
+        
+        input.addEventListener('blur', () => {
+            isFocused = false;
+            updateState();
+        });
+        
+        input.addEventListener('input', updateState);
+        
+        // Initial state
+        updateState();
+    </script>
+</body>
+</html>
