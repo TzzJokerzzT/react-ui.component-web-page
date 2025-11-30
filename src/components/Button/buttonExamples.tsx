@@ -1,3 +1,4 @@
+import ExamplesLayout from "@/layout/ExamplesLayout";
 import { Button } from "./button";
 import { AnimationButtons } from "./Examples/Animation";
 import { AnimationControlandPerformance } from "./Examples/AnimationControlandPerformance";
@@ -22,7 +23,7 @@ import { VariantMatrix } from "./Examples/VariantMatrix";
  */
 export const ButtonExamples = () => {
   return (
-    <div className="p-8 space-y-8 bg-white dark:bg-gray-800 min-h-screen rounded-lg">
+    <ExamplesLayout>
       {/* Basic Variants */}
       <BasicButtons />
 
@@ -303,7 +304,7 @@ export const ButtonExamples = () => {
           backward compatibility.
         </p>
       </section>
-    </div>
+    </ExamplesLayout>
   );
 };
 

@@ -62,6 +62,7 @@
   --color-success-900: #14532d;
   --color-success-foreground: #ffffff;
 
+  --color-warning: #f59e0b;
   --color-warning-50: #fffbeb;
   --color-warning-100: #fef3c7;
   --color-warning-200: #fde68a;
@@ -331,4 +332,33 @@
 .scrollbar-hide {
   -ms-overflow-style: none; /* IE y Edge */
   scrollbar-width: none; /* Firefox */
+}
+
+/* Ensure warning color classes are generated */
+.bg-warning {
+  background-color: var(--color-warning-500);
+}
+
+.text-warning {
+  color: var(--color-warning-500);
+}
+
+.text-warning-foreground {
+  color: var(--color-warning-foreground);
+}
+
+.border-warning {
+  border-color: var(--color-warning-500);
+}
+
+.text-warning-600 {
+  color: var(--color-warning-600);
+}
+
+.text-warning-500 {
+  color: var(--color-warning-500);
+}
+
+.bg-warning-50 {
+  background-color: var(--color-warning-50);
 }

@@ -12,6 +12,7 @@ import ButtonPage from "@/pages/ButtonPage";
 import CardPage from "@/pages/CardPage";
 import CheckboxPage from "@/pages/CheckboxPage";
 import ChipPage from "@/pages/ChipPage";
+import { CodePage } from "@/pages/CodePage";
 import ImagePage from "@/pages/ImagePage";
 import { InputPage } from "@/pages/InputPage";
 import ModalPage from "@/pages/ModalPage";
@@ -51,6 +52,7 @@ const AppRoutes = () => {
       <Route path="/autocomplete" element={<AutocompletePage />} />
       <Route path="/badges" element={<BadgePage />} />
       <Route path="/chips" element={<ChipPage />} />
+      <Route path="/code" element={<CodePage />} />
       <Route path="/progress" element={<ProgressSpinnerPage />} />
       <Route path="/navbar" element={<NavbarPage />} />
       <Route path="/modal" element={<ModalPage />} />

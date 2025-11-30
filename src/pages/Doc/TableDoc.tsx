@@ -79,7 +79,7 @@ export const TableDoc = () => {
                 CustomTableColor
               </h4>
               <pre className="text-sm text-gray-600 dark:text-gray-300 whitespace-pre-wrap">
-{`{
+                {`{
   background?: string;    // Background color class
   border?: string;        // Border color class
   text?: string;          // Text color class
@@ -97,7 +97,7 @@ export const TableDoc = () => {
           <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
             Custom Colors Usage Examples
           </h3>
-          
+
           <div className="space-y-6">
             {/* Basic Custom Colors */}
             <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
@@ -105,7 +105,7 @@ export const TableDoc = () => {
                 Basic Custom Colors
               </h4>
               <pre className="bg-gray-800 text-gray-100 p-4 rounded overflow-x-auto text-sm">
-{`<Table 
+                {`<Table 
   color="custom" 
   customColor={{
     background: "bg-purple-50 dark:bg-purple-900/20",
@@ -125,7 +125,7 @@ export const TableDoc = () => {
                 Gradient Background
               </h4>
               <pre className="bg-gray-800 text-gray-100 p-4 rounded overflow-x-auto text-sm">
-{`<Table 
+                {`<Table 
   color="custom" 
   customColor={{
     gradient: "bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20",
@@ -144,7 +144,7 @@ export const TableDoc = () => {
                 Complete Custom Theme
               </h4>
               <pre className="bg-gray-800 text-gray-100 p-4 rounded overflow-x-auto text-sm">
-{`<Table 
+                {`<Table 
   color="custom" 
   customColor={{
     background: "bg-emerald-50 dark:bg-emerald-900/20",

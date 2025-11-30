@@ -26,6 +26,7 @@ import { UserPage } from '../pages/UserPage';
 import { InputPage } from '../pages/InputPage';
 import SidebarPage from '../pages/SidebarPage';
 import RouterPage from '../pages/RouterPage';
+import { CodePage } from '../pages/CodePage';
 
 // Icon components
 const ComponentIcon = () => React.createElement(
@@ -76,6 +77,7 @@ export const allRoutes: Route[] = [
   { path: '/autocomplete', element: AutocompletePage, label: 'Autocomplete', icon: React.createElement(ComponentIcon), category: 'core' },
   { path: '/badges', element: BadgePage, label: 'Badges', icon: React.createElement(ComponentIcon), category: 'core' },
   { path: '/chips', element: ChipPage, label: 'Chips', icon: React.createElement(ComponentIcon), category: 'core' },
+  { path: '/code', element: CodePage, label: 'Code', icon: React.createElement(ComponentIcon), category: 'core' },
   { path: '/progress', element: ProgressSpinnerPage, label: 'Progress', icon: React.createElement(ComponentIcon), category: 'core' },
   { path: '/navbar', element: NavbarPage, label: 'Navbar', icon: React.createElement(ComponentIcon), category: 'core' },
   { path: '/modal', element: ModalPage, label: 'Modal', icon: React.createElement(ComponentIcon), category: 'core' },

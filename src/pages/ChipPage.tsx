@@ -31,11 +31,11 @@ const ChipPage = () => {
   const variants: ChipVariant[] = [
     "solid",
     "bordered",
-    "light", 
+    "light",
     "flat",
     "faded",
     "shadow",
-    "dot"
+    "dot",
   ];
 
   const sizes: ChipSize[] = ["sm", "md", "lg"];
@@ -43,7 +43,7 @@ const ChipPage = () => {
   const radiusOptions: ChipRadius[] = ["none", "sm", "md", "lg", "full"];
 
   const handleChipClose = (chipId: number) => {
-    setChips(chips.filter(chip => chip.id !== chipId));
+    setChips(chips.filter((chip) => chip.id !== chipId));
   };
 
   const resetChips = () => {
@@ -71,7 +71,9 @@ const ChipPage = () => {
           Chip Component System
         </h1>
         <p className="text-gray-600 mb-8">
-          A comprehensive chip component following HeroUI design patterns. Chips are small blocks of essential information that represent an input, attribute, or action.
+          A comprehensive chip component following HeroUI design patterns. Chips
+          are small blocks of essential information that represent an input,
+          attribute, or action.
         </p>
 
         {/* Basic Examples */}
@@ -94,9 +96,12 @@ const ChipPage = () => {
 
         {/* Variants */}
         <section className="bg-white p-6 rounded-lg shadow-sm">
-          <h2 className="text-2xl font-semibold text-gray-700 mb-4">Variants</h2>
+          <h2 className="text-2xl font-semibold text-gray-700 mb-4">
+            Variants
+          </h2>
           <p className="text-gray-600 mb-4">
-            Different visual styles: solid, bordered, light, flat, faded, shadow, and dot.
+            Different visual styles: solid, bordered, light, flat, faded,
+            shadow, and dot.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {variants.map((variant) => (
@@ -140,7 +145,9 @@ const ChipPage = () => {
                 <Chip size={size} color="primary">
                   {size.toUpperCase()} Size
                 </Chip>
-                <p className="text-sm text-gray-500 font-medium">{size.toUpperCase()}</p>
+                <p className="text-sm text-gray-500 font-medium">
+                  {size.toUpperCase()}
+                </p>
               </div>
             ))}
           </div>
@@ -150,13 +157,16 @@ const ChipPage = () => {
         <section className="bg-white p-6 rounded-lg shadow-sm">
           <h2 className="text-2xl font-semibold text-gray-700 mb-4">Radius</h2>
           <p className="text-gray-600 mb-4">
-            Different border radius options: none, small, medium, large, and full.
+            Different border radius options: none, small, medium, large, and
+            full.
           </p>
           <div className="flex flex-wrap gap-6 items-center">
             {radiusOptions.map((radius) => (
               <div key={radius} className="space-y-4 text-center">
                 <Chip radius={radius} color="secondary">
-                  {radius === "none" ? "No Radius" : `${radius.toUpperCase()} Radius`}
+                  {radius === "none"
+                    ? "No Radius"
+                    : `${radius.toUpperCase()} Radius`}
                 </Chip>
                 <p className="text-sm text-gray-500 font-medium">{radius}</p>
               </div>
@@ -175,7 +185,9 @@ const ChipPage = () => {
           <div className="flex flex-wrap gap-4 items-center">
             <Chip>Enabled Chip</Chip>
             <Chip isDisabled>Disabled Chip</Chip>
-            <Chip color="primary" isDisabled>Disabled Primary</Chip>
+            <Chip color="primary" isDisabled>
+              Disabled Primary
+            </Chip>
             <Chip variant="bordered" color="success" isDisabled>
               Disabled Bordered
             </Chip>
@@ -219,7 +231,8 @@ const ChipPage = () => {
             With Close Button
           </h2>
           <p className="text-gray-600 mb-4">
-            Chips with close functionality for removable tags or filters. Click the × to remove chips.
+            Chips with close functionality for removable tags or filters. Click
+            the × to remove chips.
           </p>
           <div className="space-y-4">
             <div className="flex flex-wrap gap-2">
@@ -286,7 +299,7 @@ const ChipPage = () => {
                 />
               }
               color="danger"
-              onClose={() => console.log('Remove Alice')}
+              onClose={() => console.log("Remove Alice")}
             >
               Alice Brown
             </Chip>
@@ -299,15 +312,28 @@ const ChipPage = () => {
             Dot Variant
           </h2>
           <p className="text-gray-600 mb-4">
-            The dot variant shows a colored indicator dot, perfect for status indicators.
+            The dot variant shows a colored indicator dot, perfect for status
+            indicators.
           </p>
           <div className="flex flex-wrap gap-4 items-center">
-            <Chip variant="dot" color="success">Online</Chip>
-            <Chip variant="dot" color="warning">Away</Chip>
-            <Chip variant="dot" color="danger">Busy</Chip>
-            <Chip variant="dot" color="default">Offline</Chip>
-            <Chip variant="dot" color="primary">Active</Chip>
-            <Chip variant="dot" color="secondary">Inactive</Chip>
+            <Chip variant="dot" color="success">
+              Online
+            </Chip>
+            <Chip variant="dot" color="warning">
+              Away
+            </Chip>
+            <Chip variant="dot" color="danger">
+              Busy
+            </Chip>
+            <Chip variant="dot" color="default">
+              Offline
+            </Chip>
+            <Chip variant="dot" color="primary">
+              Active
+            </Chip>
+            <Chip variant="dot" color="secondary">
+              Inactive
+            </Chip>
           </div>
         </section>
 
@@ -319,13 +345,22 @@ const ChipPage = () => {
           <p className="text-gray-600 mb-4">
             Common patterns for displaying multiple chips in lists or groups.
           </p>
-          
+
           <div className="space-y-6">
             {/* Skills List */}
             <div>
               <h3 className="text-lg font-medium text-gray-700 mb-3">Skills</h3>
               <div className="flex flex-wrap gap-2">
-                {["React", "TypeScript", "Node.js", "GraphQL", "AWS", "Docker", "MongoDB", "PostgreSQL"].map((skill) => (
+                {[
+                  "React",
+                  "TypeScript",
+                  "Node.js",
+                  "GraphQL",
+                  "AWS",
+                  "Docker",
+                  "MongoDB",
+                  "PostgreSQL",
+                ].map((skill) => (
                   <Chip key={skill} variant="flat" color="primary" size="sm">
                     {skill}
                   </Chip>
@@ -335,9 +370,18 @@ const ChipPage = () => {
 
             {/* Categories */}
             <div>
-              <h3 className="text-lg font-medium text-gray-700 mb-3">Categories</h3>
+              <h3 className="text-lg font-medium text-gray-700 mb-3">
+                Categories
+              </h3>
               <div className="flex flex-wrap gap-2">
-                {["Frontend", "Backend", "DevOps", "Database", "Cloud", "Testing"].map((category) => (
+                {[
+                  "Frontend",
+                  "Backend",
+                  "DevOps",
+                  "Database",
+                  "Cloud",
+                  "Testing",
+                ].map((category) => (
                   <Chip key={category} variant="bordered" color="secondary">
                     {category}
                   </Chip>
@@ -347,12 +391,22 @@ const ChipPage = () => {
 
             {/* Status Indicators */}
             <div>
-              <h3 className="text-lg font-medium text-gray-700 mb-3">Project Status</h3>
+              <h3 className="text-lg font-medium text-gray-700 mb-3">
+                Project Status
+              </h3>
               <div className="flex flex-wrap gap-3">
-                <Chip variant="dot" color="success">Completed</Chip>
-                <Chip variant="dot" color="warning">In Progress</Chip>
-                <Chip variant="dot" color="danger">Blocked</Chip>
-                <Chip variant="dot" color="default">Not Started</Chip>
+                <Chip variant="dot" color="success">
+                  Completed
+                </Chip>
+                <Chip variant="dot" color="warning">
+                  In Progress
+                </Chip>
+                <Chip variant="dot" color="danger">
+                  Blocked
+                </Chip>
+                <Chip variant="dot" color="default">
+                  Not Started
+                </Chip>
               </div>
             </div>
           </div>
@@ -364,13 +418,14 @@ const ChipPage = () => {
             Custom Styles
           </h2>
           <p className="text-gray-600 mb-4">
-            Chips with custom styling using the classNames prop for different slots.
+            Chips with custom styling using the classNames prop for different
+            slots.
           </p>
           <div className="flex flex-wrap gap-4 items-center">
             <Chip
               classNames={{
                 base: "bg-gradient-to-r from-purple-500 to-pink-500 border-none",
-                content: "text-white font-bold"
+                content: "text-white font-bold",
               }}
             >
               Gradient Chip
@@ -378,17 +433,17 @@ const ChipPage = () => {
             <Chip
               classNames={{
                 base: "border-2 border-dashed border-blue-300 bg-blue-50",
-                content: "text-blue-600 font-semibold"
+                content: "text-blue-600 font-semibold",
               }}
             >
               Dashed Border
             </Chip>
             <Chip
-              onClose={() => console.log('Custom close')}
+              onClose={() => console.log("Custom close")}
               classNames={{
                 base: "bg-yellow-100 border border-yellow-300",
                 content: "text-yellow-800",
-                closeButton: "text-yellow-600 hover:text-yellow-800"
+                closeButton: "text-yellow-600 hover:text-yellow-800",
               }}
             >
               Custom Close
@@ -408,7 +463,9 @@ const ChipPage = () => {
                   <th className="text-left py-2 px-4 font-semibold">Prop</th>
                   <th className="text-left py-2 px-4 font-semibold">Type</th>
                   <th className="text-left py-2 px-4 font-semibold">Default</th>
-                  <th className="text-left py-2 px-4 font-semibold">Description</th>
+                  <th className="text-left py-2 px-4 font-semibold">
+                    Description
+                  </th>
                 </tr>
               </thead>
               <tbody className="text-sm">
@@ -416,17 +473,23 @@ const ChipPage = () => {
                   <td className="py-2 px-4 font-mono">children</td>
                   <td className="py-2 px-4">ReactNode</td>
                   <td className="py-2 px-4">-</td>
-                  <td className="py-2 px-4">The content to display inside the chip</td>
+                  <td className="py-2 px-4">
+                    The content to display inside the chip
+                  </td>
                 </tr>
                 <tr className="border-b">
                   <td className="py-2 px-4 font-mono">variant</td>
-                  <td className="py-2 px-4">solid | bordered | light | flat | faded | shadow | dot</td>
+                  <td className="py-2 px-4">
+                    solid | bordered | light | flat | faded | shadow | dot
+                  </td>
                   <td className="py-2 px-4">solid</td>
                   <td className="py-2 px-4">The visual style of the chip</td>
                 </tr>
                 <tr className="border-b">
                   <td className="py-2 px-4 font-mono">color</td>
-                  <td className="py-2 px-4">default | primary | secondary | success | warning | danger</td>
+                  <td className="py-2 px-4">
+                    default | primary | secondary | success | warning | danger
+                  </td>
                   <td className="py-2 px-4">default</td>
                   <td className="py-2 px-4">The color theme of the chip</td>
                 </tr>
@@ -446,7 +509,9 @@ const ChipPage = () => {
                   <td className="py-2 px-4 font-mono">avatar</td>
                   <td className="py-2 px-4">ReactNode</td>
                   <td className="py-2 px-4">-</td>
-                  <td className="py-2 px-4">Avatar element to display on the left</td>
+                  <td className="py-2 px-4">
+                    Avatar element to display on the left
+                  </td>
                 </tr>
                 <tr className="border-b">
                   <td className="py-2 px-4 font-mono">startContent</td>
@@ -482,3 +547,4 @@ const ChipPage = () => {
 };
 
 export default ChipPage;
+

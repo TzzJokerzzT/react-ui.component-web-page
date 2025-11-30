@@ -1,20 +1,13 @@
 import React, { useState, useMemo } from "react";
-import { Table, TableHeader, TableBody, type Selection, type SortDescriptor } from "./index";
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  type Selection,
+  type SortDescriptor,
+} from "./index";
 import { sortItems } from "./helper";
 import tableData from "../../data/tableData.json";
-
-// Función para formatear moneda
-const formatCurrency = (amount: number) => {
-  return new Intl.NumberFormat("es-ES", {
-    style: "currency",
-    currency: "EUR",
-  }).format(amount);
-};
-
-// Función para formatear fecha
-const formatDate = (dateString: string) => {
-  return new Date(dateString).toLocaleDateString("es-ES");
-};
 
 const RealDataTableExamples: React.FC = () => {
   return (
@@ -30,20 +23,6 @@ const RealDataTableExamples: React.FC = () => {
       </div>
 
       {/* Tabla de Empleados */}
-      <section className="space-y-4">
-        <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
-          👥 Gestión de Empleados
-        </h2>
-        <UsersTableExample />
-      </section>
-
-      {/* Tabla de Productos */}
-      <section className="space-y-4">
-        <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
-          📦 Catálogo de Productos
-        </h2>
-        <ProductsTableExample />
-      </section>
 
       {/* Tabla de Pedidos */}
       <section className="space-y-4">
@@ -64,314 +43,13 @@ const RealDataTableExamples: React.FC = () => {
   );
 };
 
-// Ejemplo de tabla de empleados
-const UsersTableExample: React.FC = () => {
-  const [selectedKeys, setSelectedKeys] = useState<Selection>(new Set());
-  const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
-    column: "name",
-    direction: "ascending",
-  });
-
-  const users = tableData.users as any[];
-
-  const handleSortChange = (newSortDescriptor: SortDescriptor) => {
-    setSortDescriptor(newSortDescriptor);
-  };
-
-  const sortedUsers = useMemo(() => {
-    return sortItems(users, sortDescriptor);
-  }, [users, sortDescriptor]);
-
-  const userColumns = [
-    {
-      key: "avatar",
-      label: "Foto",
-      render: (user: any) => (
-        <img
-          src={user.avatar}
-          alt={user.name}
-          className="w-10 h-10 rounded-full object-cover"
-        />
-      ),
-    },
-    {
-      key: "name",
-      label: "Nombre",
-      allowsSorting: true,
-    },
-    {
-      key: "email",
-      label: "Email",
-      allowsSorting: true,
-    },
-    {
-      key: "role",
-      label: "Cargo",
-      allowsSorting: true,
-    },
-    {
-      key: "department",
-      label: "Departamento",
-      allowsSorting: true,
-    },
-    {
-      key: "status",
-      label: "Estado",
-      allowsSorting: true,
-      render: (user: any) => (
-        <span
-          className={`px-2 py-1 rounded-full text-xs font-medium ${
-            user.status === "active"
-              ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
-              : user.status === "inactive"
-                ? "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
-                : "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200"
-          }`}
-        >
-          {user.status === "active"
-            ? "Activo"
-            : user.status === "inactive"
-              ? "Inactivo"
-              : "Pendiente"}
-        </span>
-      ),
-    },
-    {
-      key: "salary",
-      label: "Salario",
-      allowsSorting: true,
-      align: "end" as any,
-      render: (user: any) => formatCurrency(user.salary),
-    },
-    {
-      key: "performance",
-      label: "Rendimiento",
-      allowsSorting: true,
-      align: "center" as any,
-      render: (user: any) => (
-        <div className="flex items-center space-x-2">
-          <div className="w-16 bg-gray-200 rounded-full h-2 dark:bg-gray-700">
-            <div
-              className={`h-2 rounded-full ${
-                user.performance >= 90
-                  ? "bg-green-500"
-                  : user.performance >= 80
-                    ? "bg-yellow-500"
-                    : "bg-red-500"
-              }`}
-              style={{ width: `${user.performance}%` }}
-            ></div>
-          </div>
-          <span className="text-sm font-medium">{user.performance}%</span>
-        </div>
-      ),
-    },
-  ];
-
-  return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-      <Table
-        columns={userColumns}
-        items={sortedUsers}
-        selectionMode="multiple"
-        showSelectionCheckboxes
-        selectedKeys={selectedKeys}
-        onSelectionChange={setSelectedKeys}
-        sortDescriptor={sortDescriptor}
-        onSortChange={handleSortChange}
-        isStriped
-        topContent={
-          <div className="flex justify-between items-center p-4">
-            <div>
-              <h3 className="text-lg font-semibold">Empleados</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Gestiona el equipo de tu empresa
-              </p>
-            </div>
-            <div className="flex space-x-2">
-              <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
-                Agregar Empleado
-              </button>
-              <button className="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
-                Exportar
-              </button>
-            </div>
-          </div>
-        }
-        bottomContent={
-          <div className="flex justify-between items-center p-4">
-            <span className="text-sm text-gray-600 dark:text-gray-400">
-              Total: {users.length} empleados
-              {selectedKeys !== "all" &&
-                (selectedKeys as Set<any>).size > 0 && (
-                  <span className="ml-2">
-                    ({(selectedKeys as Set<any>).size} seleccionados)
-                  </span>
-                )}
-            </span>
-            <div className="flex space-x-1">
-              <button className="px-3 py-1 text-sm border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
-                Anterior
-              </button>
-              <button className="px-3 py-1 text-sm bg-blue-600 text-white rounded-md">
-                1
-              </button>
-              <button className="px-3 py-1 text-sm border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
-                2
-              </button>
-              <button className="px-3 py-1 text-sm border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
-                Siguiente
-              </button>
-            </div>
-          </div>
-        }
-      >
-        <TableHeader columns={userColumns} />
-        <TableBody items={sortedUsers} />
-      </Table>
-    </div>
-  );
-};
-
-// Ejemplo de tabla de productos
-const ProductsTableExample: React.FC = () => {
-  const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
-    column: "name",
-    direction: "ascending",
-  });
-  
-  const products = tableData.products as any[];
-
-  const sortedProducts = useMemo(() => {
-    return sortItems(products, sortDescriptor);
-  }, [products, sortDescriptor]);
-
-  const productColumns = [
-    {
-      key: "image",
-      label: "Imagen",
-      render: (product: any) => (
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-12 h-12 rounded-md object-cover"
-        />
-      ),
-    },
-    {
-      key: "name",
-      label: "Producto",
-      allowsSorting: true,
-    },
-    {
-      key: "category",
-      label: "Categoría",
-      allowsSorting: true,
-    },
-    {
-      key: "brand",
-      label: "Marca",
-      allowsSorting: true,
-    },
-    {
-      key: "price",
-      label: "Precio",
-      allowsSorting: true,
-      align: "end" as any,
-      render: (product: any) => formatCurrency(product.price),
-    },
-    {
-      key: "stock",
-      label: "Stock",
-      allowsSorting: true,
-      align: "center" as any,
-      render: (product: any) => (
-        <span
-          className={`px-2 py-1 rounded-full text-xs font-medium ${
-            product.stock > 20
-              ? "bg-green-100 text-green-800"
-              : product.stock > 0
-                ? "bg-yellow-100 text-yellow-800"
-                : "bg-red-100 text-red-800"
-          }`}
-        >
-          {product.stock}
-        </span>
-      ),
-    },
-    {
-      key: "status",
-      label: "Estado",
-      allowsSorting: true,
-      render: (product: any) => (
-        <span
-          className={`px-2 py-1 rounded-full text-xs font-medium ${
-            product.status === "available"
-              ? "bg-green-100 text-green-800"
-              : product.status === "low_stock"
-                ? "bg-yellow-100 text-yellow-800"
-                : "bg-red-100 text-red-800"
-          }`}
-        >
-          {product.status === "available"
-            ? "Disponible"
-            : product.status === "low_stock"
-              ? "Stock Bajo"
-              : "Agotado"}
-        </span>
-      ),
-    },
-    {
-      key: "rating",
-      label: "Rating",
-      allowsSorting: true,
-      align: "center" as any,
-      render: (product: any) => (
-        <div className="flex items-center space-x-1">
-          <span className="text-yellow-400">⭐</span>
-          <span className="text-sm font-medium">{product.rating}</span>
-          <span className="text-xs text-gray-500">({product.reviews})</span>
-        </div>
-      ),
-    },
-  ];
-
-  return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-      <Table
-        columns={productColumns}
-        items={sortedProducts}
-        sortDescriptor={sortDescriptor}
-        onSortChange={setSortDescriptor}
-        isCompact
-        topContent={
-          <div className="flex justify-between items-center p-4">
-            <div>
-              <h3 className="text-lg font-semibold">Catálogo de Productos</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Gestiona tu inventario
-              </p>
-            </div>
-            <button className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
-              Agregar Producto
-            </button>
-          </div>
-        }
-      >
-        <TableHeader columns={productColumns} />
-        <TableBody items={sortedProducts} />
-      </Table>
-    </div>
-  );
-};
-
 // Ejemplo de tabla de pedidos
 const OrdersTableExample: React.FC = () => {
   const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
     column: "name",
     direction: "ascending",
   });
-  
+
   const orders = tableData.orders as any[];
 
   const sortedOrders = useMemo(() => {
@@ -497,7 +175,7 @@ const ProjectsTableExample: React.FC = () => {
     column: "name",
     direction: "ascending",
   });
-  
+
   const projects = tableData.projects as any[];
 
   const sortedProjects = useMemo(() => {
@@ -641,7 +319,10 @@ const ProjectsTableExample: React.FC = () => {
               </div>
               <div>
                 <div className="text-2xl font-bold text-blue-600">
-                  {projects.filter((p: any) => p.status === "in_progress").length}
+                  {
+                    projects.filter((p: any) => p.status === "in_progress")
+                      .length
+                  }
                 </div>
                 <div className="text-sm text-gray-600">En Progreso</div>
               </div>
@@ -669,3 +350,4 @@ const ProjectsTableExample: React.FC = () => {
 };
 
 export default RealDataTableExamples;
+

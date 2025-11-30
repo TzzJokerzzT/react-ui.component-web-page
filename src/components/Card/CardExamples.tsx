@@ -1,3 +1,4 @@
+import ExamplesLayout from "@/layout/ExamplesLayout";
 import { Card, CardHeader, CardBody, CardFooter } from "./Card";
 import { BasicCard } from "./Examples/Basic";
 import { ComposedCard } from "./Examples/Composed";
@@ -12,7 +13,7 @@ import { VariantCard } from "./Examples/Variant";
  */
 export const CardExamples = () => {
   return (
-    <div className="p-8 space-y-8 bg-white dark:bg-gray-800 min-h-screen rounded-lg">
+    <ExamplesLayout>
       {/* Basic Cards */}
       <section>
         <h2 className="text-2xl font-semibold text-black dark:text-primary-50 mb-4">
@@ -60,6 +61,6 @@ export const CardExamples = () => {
         </h2>
         <RealWorldCard />
       </section>
-    </div>
+    </ExamplesLayout>
   );
 };

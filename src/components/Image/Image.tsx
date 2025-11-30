@@ -74,6 +74,13 @@ export const Image = ({
     }
   }, [src, currentSrc, hasError, disableSkeleton]);
 
+  // Update isLoading when disableSkeleton changes
+  useEffect(() => {
+    if (disableSkeleton) {
+      setIsLoading(false);
+    }
+  }, [disableSkeleton]);
+
   // Get combined classes for the main image
   const imageClasses = getImageClasses(radius, shadow, isLoading);
   const combinedImageClasses = [
