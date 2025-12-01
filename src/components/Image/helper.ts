@@ -27,9 +27,9 @@ export const getImageShadow = {
  * @returns CSS classes string
  */
 export const getImageWrapperClasses = (isZoomed: boolean = false): string => {
-  const baseClasses = "relative inline-block overflow-hidden";
+  const baseClasses = "relative inline-block";
   const zoomClasses = isZoomed 
-    ? "cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105" 
+    ? "overflow-hidden cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105" 
     : "";
   
   return [baseClasses, zoomClasses].filter(Boolean).join(" ");
@@ -57,7 +57,7 @@ export const getImageClasses = (
 ): string => {
   const radiusClasses = getImageRadius[radius];
   const shadowClasses = getImageShadow[shadow];
-  const baseClasses = "max-w-full h-auto object-cover";
+  const baseClasses = "relative z-10 max-w-full h-auto object-cover";
   const loadingClasses = isLoading 
     ? "opacity-0 transition-opacity duration-500 ease-in-out" 
     : "opacity-100 transition-opacity duration-500 ease-in-out";
@@ -74,7 +74,7 @@ export const getImageClasses = (
  */
 export const getBlurredImageClasses = (radius: ImageRadius = "lg"): string => {
   const radiusClasses = getImageRadius[radius];
-  const baseClasses = "absolute inset-0 w-full h-full object-cover blur-lg scale-110 opacity-30";
+  const baseClasses = "absolute inset-0 w-full h-full object-cover blur-2xl scale-125 opacity-70 z-0";
   
   return [baseClasses, radiusClasses].filter(Boolean).join(" ");
 };

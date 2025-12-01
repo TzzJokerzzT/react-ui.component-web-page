@@ -138,15 +138,24 @@ export const Image = ({
 
   // Determine wrapper component and classes
   const WrapperComponent = isZoomed ? ImageZoomedWrapper : ImageWrapper;
-  const wrapperClasses = [
+
+  // Base classes shared by both normal and zoomed wrappers
+  const baseWrapperClasses = [
     getImageWrapperClasses(isZoomed),
+    isBlurred ? "p-2" : "",
+  ].filter(Boolean).join(" ");
+
+  const wrapperClasses = [
+    baseWrapperClasses,
     classNames?.wrapper,
   ].filter(Boolean).join(" ");
 
   const zoomedWrapperClasses = isZoomed ? [
     getImageZoomedWrapperClasses(),
+    baseWrapperClasses,
     classNames?.zoomedWrapper,
   ].filter(Boolean).join(" ") : "";
+
 
   return (
     <WrapperComponent
