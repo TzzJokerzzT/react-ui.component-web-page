@@ -30,7 +30,7 @@ export const BlurredImage = () => {
             alt="Blurred image"
             width={250}
             height={200}
-            isBlurred={true}
+            isBlurred
             disableSkeleton
           />
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">

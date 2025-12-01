@@ -29,7 +29,7 @@ export const ZoomImage = () => {
             alt="Zoomed image"
             width={250}
             height={200}
-            isZoomed={true}
+            isZoomed
             disableSkeleton
           />
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
