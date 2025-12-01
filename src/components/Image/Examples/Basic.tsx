@@ -14,7 +14,7 @@ export const BasicImage = () => {
   const test = async () => {
     setTimeout(() => {
       setShowSkeleton(false);
-    }, 5000);
+    }, 300);
   };
 
   useEffect(() => {
@@ -35,6 +35,7 @@ export const BasicImage = () => {
             width={300}
             height={200}
             loading="lazy"
+            disableSkeleton={showSkeleton}
           />
         ))}
       </div>

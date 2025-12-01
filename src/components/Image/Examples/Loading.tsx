@@ -18,6 +18,7 @@ export const LoadingImage = () => {
             width={200}
             height={150}
             loading="lazy"
+            disableSkeleton
           />
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
             Lazy loading (default)
@@ -30,6 +31,7 @@ export const LoadingImage = () => {
             width={200}
             height={150}
             loading="eager"
+            disableSkeleton
           />
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
             Eager loading
@@ -41,7 +43,7 @@ export const LoadingImage = () => {
             alt="No skeleton image"
             width={200}
             height={150}
-            disableSkeleton={true}
+            disableSkeleton
           />
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
             No skeleton

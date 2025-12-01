@@ -25,6 +25,7 @@ export const RadiusImage = () => {
             width={150}
             height={150}
             radius="sm"
+            disableSkeleton
           />
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">sm</p>
         </div>
@@ -35,6 +36,7 @@ export const RadiusImage = () => {
             width={150}
             height={150}
             radius="md"
+            disableSkeleton
           />
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">md</p>
         </div>
@@ -45,6 +47,7 @@ export const RadiusImage = () => {
             width={150}
             height={150}
             radius="lg"
+            disableSkeleton
           />
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">lg</p>
         </div>
@@ -55,6 +58,7 @@ export const RadiusImage = () => {
             width={150}
             height={150}
             radius="full"
+            disableSkeleton
           />
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">full</p>
         </div>

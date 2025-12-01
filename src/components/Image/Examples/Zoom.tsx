@@ -17,6 +17,7 @@ export const ZoomImage = () => {
             width={250}
             height={200}
             isZoomed={false}
+            disableSkeleton
           />
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
             Normal
@@ -29,6 +30,7 @@ export const ZoomImage = () => {
             width={250}
             height={200}
             isZoomed={true}
+            disableSkeleton
           />
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
             Zoomed (hover to see effect)

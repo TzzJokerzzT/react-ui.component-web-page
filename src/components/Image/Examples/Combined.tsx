@@ -16,10 +16,11 @@ export const CombinedImage = () => {
             alt="Blurred and zoomed image"
             width={280}
             height={200}
-            isBlurred={true}
-            isZoomed={true}
+            isBlurred
+            isZoomed
             shadow="lg"
             radius="lg"
+            disableSkeleton
           />
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
             Blurred + Zoomed + Shadow
@@ -36,6 +37,7 @@ export const CombinedImage = () => {
             shadow="lg"
             radius="full"
             fallbackSrc="https://picsum.photos/280/200?random=24"
+            disableSkeleton
           />
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
             All effects combined

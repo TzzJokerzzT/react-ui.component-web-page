@@ -14,6 +14,7 @@ export const ShadowImage = () => {
             width={180}
             height={120}
             shadow="none"
+            disableSkeleton
           />
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">none</p>
         </div>
@@ -24,6 +25,7 @@ export const ShadowImage = () => {
             width={180}
             height={120}
             shadow="sm"
+            disableSkeleton
           />
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">sm</p>
         </div>
@@ -34,6 +36,7 @@ export const ShadowImage = () => {
             width={180}
             height={120}
             shadow="md"
+            disableSkeleton
           />
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">md</p>
         </div>
@@ -44,6 +47,7 @@ export const ShadowImage = () => {
             width={180}
             height={120}
             shadow="lg"
+            disableSkeleton
           />
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">lg</p>
         </div>

@@ -12,11 +12,12 @@ export const FallbackImage = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="text-center">
           <Image
-            src="https://broken-url-that-does-not-exist.jpg"
+            src="https://picsum.photos/250/200?random=19"
             alt="Image with fallback"
             width={250}
             height={200}
             fallbackSrc="https://picsum.photos/250/200?random=17"
+            disableSkeleton
           />
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
             With fallback
@@ -28,6 +29,7 @@ export const FallbackImage = () => {
             alt="Normal working image"
             width={250}
             height={200}
+            disableSkeleton
           />
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
             Normal working image

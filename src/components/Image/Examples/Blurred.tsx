@@ -18,6 +18,7 @@ export const BlurredImage = () => {
             width={250}
             height={200}
             isBlurred={false}
+            disableSkeleton
           />
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
             Normal
@@ -30,6 +31,7 @@ export const BlurredImage = () => {
             width={250}
             height={200}
             isBlurred={true}
+            disableSkeleton
           />
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
             Blurred

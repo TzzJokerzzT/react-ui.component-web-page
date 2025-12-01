@@ -18,6 +18,7 @@ export const CustomImage = () => {
             height={200}
             className="border-4 border-blue-500"
             radius="lg"
+            disableSkeleton
           />
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
             Custom border
