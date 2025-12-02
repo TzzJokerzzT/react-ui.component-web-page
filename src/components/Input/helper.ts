@@ -1,9 +1,9 @@
-import type { 
-  InputSize, 
-  InputColor, 
-  InputVariant, 
-  InputRadius, 
-  InputLabelPlacement 
+import type {
+  InputSize,
+  InputColor,
+  InputVariant,
+  InputRadius,
+  InputLabelPlacement,
 } from "./types";
 
 /**
@@ -12,13 +12,9 @@ import type {
 export const getInputBaseClasses = (
   fullWidth: boolean = true,
   isDisabled: boolean = false,
-  labelPlacement: InputLabelPlacement = "inside"
+  labelPlacement: InputLabelPlacement = "inside",
 ): string => {
-  const baseClasses = [
-    "group",
-    "flex",
-    "flex-col",
-  ];
+  const baseClasses = ["group", "flex", "flex-col"];
 
   if (fullWidth) {
     baseClasses.push("w-full");
@@ -40,7 +36,7 @@ export const getInputBaseClasses = (
  * Get main wrapper classes (for outside label placements)
  */
 export const getInputMainWrapperClasses = (
-  labelPlacement: InputLabelPlacement = "inside"
+  labelPlacement: InputLabelPlacement = "inside",
 ): string => {
   const classes = ["flex"];
 
@@ -61,7 +57,7 @@ export const getInputLabelClasses = (
   color: InputColor = "default",
   labelPlacement: InputLabelPlacement = "inside",
   isRequired: boolean = false,
-  isInvalid: boolean = false
+  isInvalid: boolean = false,
 ): string => {
   const classes = [
     "select-none",
@@ -73,7 +69,7 @@ export const getInputLabelClasses = (
   // Size variants
   const sizeClasses = {
     sm: "text-xs",
-    md: "text-sm", 
+    md: "text-sm",
     lg: "text-base",
   };
   classes.push(sizeClasses[size]);
@@ -85,7 +81,7 @@ export const getInputLabelClasses = (
     const colorClasses = {
       default: "text-foreground-600",
       primary: "text-primary",
-      secondary: "text-secondary", 
+      secondary: "text-secondary",
       success: "text-success",
       warning: "text-warning",
       danger: "text-danger",
@@ -107,9 +103,9 @@ export const getInputLabelClasses = (
       "group-data-[filled=true]:scale-85",
       "group-data-[filled=true]:-translate-y-1.5",
       "group-data-[focus=true]:scale-85",
-      "group-data-[focus=true]:-translate-y-1.5"
+      "group-data-[focus=true]:-translate-y-1.5",
     );
-    
+
     // Position based on size
     const positionClasses = {
       sm: "top-1.5",
@@ -139,7 +135,7 @@ export const getInputWrapperClasses = (
   radius: InputRadius = "md",
   isFocused: boolean = false,
   isInvalid: boolean = false,
-  isDisabled: boolean = false
+  isDisabled: boolean = false,
 ): string => {
   const classes = [
     "relative",
@@ -154,9 +150,9 @@ export const getInputWrapperClasses = (
 
   // Size variants
   const sizeClasses = {
-    sm: "h-8 min-h-8 px-2.5",
-    md: "h-10 min-h-10 px-3",
-    lg: "h-12 min-h-12 px-4",
+    sm: "h-13 min-h-8 px-2.5",
+    md: "h-15 min-h-10 px-3",
+    lg: "h-18 min-h-12 px-4",
   };
   classes.push(sizeClasses[size]);
 
@@ -180,10 +176,19 @@ export const getInputWrapperClasses = (
         classes.push("border-2", "border-danger", "hover:border-danger-hover");
         break;
       case "faded":
-        classes.push("bg-danger-50", "border-2", "border-danger-200", "hover:border-danger");
+        classes.push(
+          "bg-danger-50",
+          "border-2",
+          "border-danger-200",
+          "hover:border-danger",
+        );
         break;
       case "underlined":
-        classes.push("border-b-2", "border-danger", "hover:border-danger-hover");
+        classes.push(
+          "border-b-2",
+          "border-danger",
+          "hover:border-danger-hover",
+        );
         break;
     }
   } else {
@@ -219,11 +224,16 @@ export const getInputWrapperClasses = (
 
       case "faded":
         const fadedColors = {
-          default: "bg-default-100 border-2 border-default-200 hover:border-default-400",
-          primary: "bg-primary-50 border-2 border-primary-200 hover:border-primary",
-          secondary: "bg-secondary-50 border-2 border-secondary-200 hover:border-secondary",
-          success: "bg-success-50 border-2 border-success-200 hover:border-success",
-          warning: "bg-warning-50 border-2 border-warning-200 hover:border-warning",
+          default:
+            "bg-default-100 border-2 border-default-200 hover:border-default-400",
+          primary:
+            "bg-primary-50 border-2 border-primary-200 hover:border-primary",
+          secondary:
+            "bg-secondary-50 border-2 border-secondary-200 hover:border-secondary",
+          success:
+            "bg-success-50 border-2 border-success-200 hover:border-success",
+          warning:
+            "bg-warning-50 border-2 border-warning-200 hover:border-warning",
           danger: "bg-danger-50 border-2 border-danger-200 hover:border-danger",
         };
         classes.push(fadedColors[color]);
@@ -235,7 +245,7 @@ export const getInputWrapperClasses = (
           const underlineColors = {
             default: "border-default-400",
             primary: "border-primary",
-            secondary: "border-secondary", 
+            secondary: "border-secondary",
             success: "border-success",
             warning: "border-warning",
             danger: "border-danger",
@@ -260,13 +270,9 @@ export const getInputWrapperClasses = (
  * Get inner wrapper classes (contains input and content)
  */
 export const getInputInnerWrapperClasses = (): string => {
-  return [
-    "inline-flex",
-    "items-center",
-    "w-full",
-    "gap-1.5",
-    "h-full",
-  ].join(" ");
+  return ["inline-flex", "items-center", "w-full", "gap-1.5", "h-full"].join(
+    " ",
+  );
 };
 
 /**
@@ -274,17 +280,18 @@ export const getInputInnerWrapperClasses = (): string => {
  */
 export const getInputClasses = (
   size: InputSize = "md",
-  labelPlacement: InputLabelPlacement = "inside"
+  labelPlacement: InputLabelPlacement = "inside",
 ): string => {
   const classes = [
     "w-full",
     "font-normal",
+    "text-foreground",
     "bg-transparent",
     "outline-none",
     "placeholder:text-foreground-500",
     "focus-visible:outline-none",
-    "data-[has-start-content=true]:ps-1.5",
-    "data-[has-end-content=true]:pe-1.5",
+    "data-[has-start-content=true]:ps-1",
+    "data-[has-end-content=true]:pe-1",
   ];
 
   // Size-based text sizing
@@ -297,7 +304,7 @@ export const getInputClasses = (
 
   // Label placement specific styles
   if (labelPlacement === "inside") {
-    classes.push("group-data-[has-label=true]:pt-4");
+    classes.push("group-data-[has-label=true]:pt-1");
   }
 
   return classes.join(" ");
@@ -335,21 +342,14 @@ export const getClearButtonClasses = (size: InputSize = "md"): string => {
  * Get helper wrapper classes (for description and error)
  */
 export const getHelperWrapperClasses = (): string => {
-  return [
-    "flex",
-    "flex-col",
-    "gap-1.5",
-    "px-1",
-  ].join(" ");
+  return ["flex", "flex-col", "gap-1.5", "px-1"].join(" ");
 };
 
 /**
  * Get description classes
  */
 export const getDescriptionClasses = (size: InputSize = "md"): string => {
-  const classes = [
-    "text-foreground-400",
-  ];
+  const classes = ["text-foreground-400"];
 
   const sizeClasses = {
     sm: "text-xs",
@@ -365,13 +365,11 @@ export const getDescriptionClasses = (size: InputSize = "md"): string => {
  * Get error message classes
  */
 export const getErrorMessageClasses = (size: InputSize = "md"): string => {
-  const classes = [
-    "text-danger",
-  ];
+  const classes = ["text-danger"];
 
   const sizeClasses = {
     sm: "text-xs",
-    md: "text-sm", 
+    md: "text-sm",
     lg: "text-sm",
   };
   classes.push(sizeClasses[size]);
@@ -383,10 +381,7 @@ export const getErrorMessageClasses = (size: InputSize = "md"): string => {
  * Get start/end content classes
  */
 export const getContentClasses = (size: InputSize = "md"): string => {
-  const classes = [
-    "flex-shrink-0",
-    "text-foreground-400",
-  ];
+  const classes = ["flex-shrink-0", "text-foreground-400"];
 
   const sizeClasses = {
     sm: "text-sm",
@@ -409,8 +404,10 @@ export const validateInput = (
     maxLength?: number;
     pattern?: string;
     type?: string;
-    customValidate?: (value: string) => string | string[] | true | null | undefined;
-  }
+    customValidate?: (
+      value: string,
+    ) => string | string[] | true | null | undefined;
+  },
 ): { isValid: boolean; errors: string[] } => {
   const errors: string[] = [];
 
@@ -460,7 +457,11 @@ export const validateInput = (
   // Custom validation
   if (validation.customValidate) {
     const customResult = validation.customValidate(value);
-    if (customResult !== true && customResult !== null && customResult !== undefined) {
+    if (
+      customResult !== true &&
+      customResult !== null &&
+      customResult !== undefined
+    ) {
       if (Array.isArray(customResult)) {
         errors.push(...customResult);
       } else if (typeof customResult === "string") {
