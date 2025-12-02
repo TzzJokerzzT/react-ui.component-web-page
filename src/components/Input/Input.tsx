@@ -404,7 +404,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             ${
               inputValue || isFocused
                 ? [
-                    "text-tiny scale-85 -translate-y-[1.875rem] px-1 bg-content1",
+                    "text-tiny scale-85 -translate-y-[1.875rem] px-1",
                     "text-gray-600",
                   ].join(" ")
                 : ""
@@ -510,7 +510,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               {/* Inner wrapper with content */}
               <div className={combinedInnerWrapperClasses}>
                 {/* Start content */}
-                {startContent && (
+                {startContent && isFocused && (
                   <div
                     className={contentClasses}
                     data-testid={
@@ -582,4 +582,3 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 );
 
 Input.displayName = "Input";
-
