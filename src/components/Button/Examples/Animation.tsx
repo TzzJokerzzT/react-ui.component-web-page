@@ -1,19 +1,19 @@
 import { Button } from "../button";
 
+const ANIMATIONS = [
+  "scale",
+  "bounce",
+  "ripple",
+  "press",
+  "punch",
+  "wiggle",
+  "none",
+] as const;
+
 export const AnimationButtons = () => {
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-      {(
-        [
-          "scale",
-          "bounce",
-          "ripple",
-          "press",
-          "punch",
-          "wiggle",
-          "none",
-        ] as const
-      ).map((animation) => (
+      {ANIMATIONS.map((animation) => (
         <div
           key={animation}
           className="text-center p-4 border rounded-lg bg-white"
