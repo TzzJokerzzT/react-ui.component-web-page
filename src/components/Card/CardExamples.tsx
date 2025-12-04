@@ -13,22 +13,16 @@ import { VariantCard } from "./Examples/Variant";
 export const CardExamples = () => {
   return (
     <ExamplesLayout>
-      {/* Basic Cards */}
       <BasicCard />
 
-      {/* Color Variants */}
       <VariantCard />
 
-      {/* Size Variants */}
       <SizeCard />
 
-      {/* Interactive Cards */}
       <InteractiveCard />
 
-      {/* Composed Cards with Header, Body, Footer */}
       <ComposedCard />
 
-      {/* Real-world Article Card Example */}
       <RealWorldCard />
     </ExamplesLayout>
   );
