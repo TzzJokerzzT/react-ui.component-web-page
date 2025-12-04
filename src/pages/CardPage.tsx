@@ -8,10 +8,8 @@ const CardPage = () => {
       title="Card"
       explanation="Explore the versatile Card component with various styles, sizes, and functionalities to enhance your user interface."
     >
-      {/* Examples */}
       <CardExamples />
 
-      {/* Props Reference */}
       <CardDoc />
     </PagesLayout>
   );
