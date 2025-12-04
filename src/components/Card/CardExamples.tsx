@@ -1,5 +1,4 @@
 import ExamplesLayout from "@/layout/ExamplesLayout";
-import { Card, CardHeader, CardBody, CardFooter } from "./Card";
 import { BasicCard } from "./Examples/Basic";
 import { ComposedCard } from "./Examples/Composed";
 import { InteractiveCard } from "./Examples/Interactive";
@@ -15,52 +14,22 @@ export const CardExamples = () => {
   return (
     <ExamplesLayout>
       {/* Basic Cards */}
-      <section>
-        <h2 className="text-2xl font-semibold text-black dark:text-primary-50 mb-4">
-          Basic Cards
-        </h2>
-        <BasicCard />
-      </section>
+      <BasicCard />
 
       {/* Color Variants */}
-      <section>
-        <h2 className="text-2xl font-semibold text-black dark:text-primary-50 mb-4">
-          Color Variants
-        </h2>
-        <VariantCard />
-      </section>
+      <VariantCard />
 
       {/* Size Variants */}
-      <section>
-        <h2 className="text-2xl font-semibold text-black dark:text-primary-50 mb-4">
-          Size Variants
-        </h2>
-        <SizeCard />
-      </section>
+      <SizeCard />
 
       {/* Interactive Cards */}
-      <section>
-        <h2 className="text-2xl font-semibold text-black dark:text-primary-50 mb-4">
-          Interactive Cards
-        </h2>
-        <InteractiveCard />
-      </section>
+      <InteractiveCard />
 
       {/* Composed Cards with Header, Body, Footer */}
-      <section>
-        <h2 className="text-2xl font-semibold text-black dark:text-primary-50 mb-4">
-          Composed Cards
-        </h2>
-        <ComposedCard />
-      </section>
+      <ComposedCard />
 
       {/* Real-world Article Card Example */}
-      <section>
-        <h2 className="text-2xl font-semibold text-black dark:text-primary-50 mb-4">
-          Real-world Example
-        </h2>
-        <RealWorldCard />
-      </section>
+      <RealWorldCard />
     </ExamplesLayout>
   );
 };
