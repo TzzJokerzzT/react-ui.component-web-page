@@ -41,7 +41,9 @@ export const RealWorldCard = () => {
           </CardBody>
 
           <CardFooter>
-            <Button color="default">Edit</Button>
+            <Button color="default" variant="outline">
+              Edit
+            </Button>
             <Button color="primary">View Details</Button>
           </CardFooter>
         </Card>
