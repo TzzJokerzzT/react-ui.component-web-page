@@ -27,7 +27,7 @@ export const FormIntegrationCheckbox = () => {
         <Checkbox name="marketing" value="yes" defaultSelected>
           Allow marketing communications
         </Checkbox>
-        <Button type="submit" color="success" size="md">
+        <Button disableAnimation type="submit" color="success" size="md">
           Submit Form
         </Button>
       </form>
