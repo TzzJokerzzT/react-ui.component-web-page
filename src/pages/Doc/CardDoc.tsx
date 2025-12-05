@@ -12,7 +12,7 @@ import {
 
 export const CardDoc = () => {
   return (
-    <div className="max-w-6xl mx-auto p-1 my-4">
+    <section className="space-y-6 mt-8 transition-colors">
       <div className="bg-gray-50 dark:bg-gray-900 rounded-lg">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
           Props Reference
@@ -144,6 +144,6 @@ export const CardDoc = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
