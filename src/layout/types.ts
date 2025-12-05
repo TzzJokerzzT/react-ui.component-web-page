@@ -5,3 +5,8 @@ export interface PagesLayoutProps {
   title: string;
   explanation: string;
 }
+
+export interface CodeBlockLayoutProps {
+  children: ReactNode;
+  title: string;
+}
