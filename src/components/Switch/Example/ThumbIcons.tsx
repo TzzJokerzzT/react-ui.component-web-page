@@ -1,8 +1,13 @@
+import { FadeContainer } from "@/components/AnimatedContainer";
+import { Button } from "@/components/Button";
 import { useState } from "react";
-import { Switch, MoonIcon, SunIcon } from "../Switch";
+import { ThumbIconSwitchCode } from "../Code/ThumbIconCode";
+import { useShowCode } from "../hook/useShowCode";
+import { MoonIcon, SunIcon, Switch } from "../Switch";
 
 export const ThumbIconSwitch = () => {
   const [darkMode, setDarkMode] = useState(false);
+  const { showCode, toggleCodeVisibility } = useShowCode();
 
   const handleChange = () => {
     setDarkMode((prevMode) => !prevMode);
@@ -29,6 +34,24 @@ export const ThumbIconSwitch = () => {
             {darkMode ? "Light Mode" : " Dark Mode"}
           </p>
         </Switch>
+      </div>
+
+      <div className="mt-4 flex flex-col">
+        <Button
+          className="w-28"
+          onClick={toggleCodeVisibility}
+          variant="outline"
+          size="sm"
+        >
+          Show Code
+        </Button>
+        {showCode && (
+          <div className="grid md:grid-cols-2 gap-6">
+            <FadeContainer trigger="inView" duration={0.8} blur blurAmount={5}>
+              <ThumbIconSwitchCode title="With Thumb Icons" />
+            </FadeContainer>
+          </div>
+        )}
       </div>
     </section>
   );
