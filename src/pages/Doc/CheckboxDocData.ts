@@ -43,24 +43,24 @@ export const checkboxContent = [
     id: "5",
     key: "size",
     prop: "size",
-    type: "'sm' | 'md' | 'lg'",
-    default: "'md'",
+    type: "sm | md | lg",
+    default: "md",
     description: "Size variant of the checkbox",
   },
   {
     id: "6",
     key: "color",
     prop: "color",
-    type: "'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger'",
-    default: "'default'",
+    type: "default | primary | secondary | success | warning | danger",
+    default: "default",
     description: "Color theme of the checkbox",
   },
   {
     id: "7",
     key: "radius",
     prop: "radius",
-    type: "'none' | 'sm' | 'md' | 'lg' | 'full'",
-    default: "'md'",
+    type: "none | sm | md | lg | full",
+    default: "md",
     description: "Border radius of the checkbox",
   },
   {
@@ -131,7 +131,7 @@ export const checkboxContent = [
     id: "16",
     key: "validationState",
     prop: "validationState",
-    type: "'valid' | 'invalid'",
+    type: "valid | invalid",
     default: "-",
     description: "Validation state of the checkbox",
   },
@@ -155,7 +155,7 @@ export const checkboxContent = [
     id: "19",
     key: "classNames",
     prop: "classNames",
-    type: "Record<'base' | 'wrapper' | 'icon' | 'label' | 'hiddenInput', string>",
+    type: "Record<base | wrapper | icon | label | hiddenInput, string>",
     default: "-",
     description: "Custom class names for different component slots",
   },
@@ -182,30 +182,5 @@ export const checkboxContent = [
     type: "string",
     default: "-",
     description: "Test ID for testing frameworks",
-  },
-];
-
-// Type definitions for Checkbox
-export const checkboxTypeDefinitions = [
-  {
-    id: "1",
-    name: "CheckboxSize",
-    value: "\"sm\" | \"md\" | \"lg\"",
-  },
-  {
-    id: "2",
-    name: "CheckboxColor",
-    value:
-      "\"default\" | \"primary\" | \"secondary\" | \"success\" | \"warning\" | \"danger\"",
-  },
-  {
-    id: "3",
-    name: "CheckboxRadius",
-    value: "\"none\" | \"sm\" | \"md\" | \"lg\" | \"full\"",
-  },
-  {
-    id: "4",
-    name: "CheckboxValidationState",
-    value: "\"valid\" | \"invalid\"",
   },
 ];
