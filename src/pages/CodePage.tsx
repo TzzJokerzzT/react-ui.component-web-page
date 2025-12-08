@@ -1,5 +1,6 @@
 import { CodeExamples } from "@/components/Code/CodeExamples";
 import PagesLayout from "@/layout/PagesLayout";
+import { CodeDoc } from "./Doc/CodeDoc";
 
 export const CodePage = () => {
   return (
@@ -9,6 +10,8 @@ export const CodePage = () => {
     >
       {/* Examples */}
       <CodeExamples />
+
+      <CodeDoc />
     </PagesLayout>
   );
 };
