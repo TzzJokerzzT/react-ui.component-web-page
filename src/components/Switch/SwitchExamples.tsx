@@ -55,9 +55,6 @@ export const SwitchExamples = () => {
 
       {/* Advanced Examples */}
       <AdvancedSwitch />
-
-      {/* Props Reference */}
-      <SwitchDoc />
     </ExamplesLayout>
   );
 };
