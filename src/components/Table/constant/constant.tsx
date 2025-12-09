@@ -1,11 +1,10 @@
+import { Avatar, AvatarGroup } from "@/components/Avatar";
 import { Chip } from "@/components/Chip";
+import { Progress } from "@/components/Progress";
 import {
   formatCurrency,
   formatDate,
 } from "../Example/helper/helperForExamples";
-import { Progress } from "@/components/Progress";
-import { Button } from "@/components/Button";
-import { Avatar, AvatarGroup } from "@/components/Avatar";
 
 // Sample data types
 interface User {

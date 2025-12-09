@@ -15,132 +15,60 @@ import { EmptyStateTable } from "./Example/Empty";
 import { LoadingStateTable } from "./Example/LoadingState";
 import { CustomEmptyContentTable } from "./Example/Custom";
 import ExamplesLayout from "@/layout/ExamplesLayout";
+import { CustomStyleTable } from "./Example/CustomStyle";
 
 const TableExamples: React.FC = () => {
   return (
     <ExamplesLayout>
       {/* Basic Table */}
-      <section className="space-y-4">
-        <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
-          1. Basic Table
-        </h2>
-        <BasicTable />
-      </section>
+      <BasicTable />
 
       {/* Static Table with Custom Content */}
-      <section className="space-y-4">
-        <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
-          2. Static Table with Custom Content
-        </h2>
-        <StaticTable />
-      </section>
+      <StaticTable />
 
       {/* Sortable Table */}
-      <section className="space-y-4">
-        <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
-          3. Sortable Table
-        </h2>
-        <SortableTable />
-      </section>
+      <SortableTable />
 
       {/* Selectable Table */}
-      <section className="space-y-4">
-        <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
-          4. Selectable Table
-        </h2>
-        <SelectableTable />
-      </section>
+      <SelectableTable />
 
       {/* Table with Top and Bottom Content */}
-      <section className="space-y-4">
-        <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
-          5. Table with Top and Bottom Content
-        </h2>
-        <TableWithContent />
-      </section>
+      <TableWithContent />
 
       {/* Different Table Variants */}
-      <section className="space-y-4">
-        <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
-          6. Table Variants
-        </h2>
-        <TableVariants />
-      </section>
+      <TableVariants />
 
       {/* Text Alignment */}
-      <section className="space-y-4">
-        <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
-          7. Text Alignment
-        </h2>
-        <TextAlignment />
-      </section>
+      <TextAlignment />
 
       {/* Loading and Empty States */}
-      <section className="space-y-4">
-        <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
-          8. Loading and Empty States
-        </h2>
-        <LoadingAndEmpty />
-      </section>
+      <LoadingAndEmpty />
 
       {/* Tabla de Empleados */}
-      <section className="space-y-4">
-        <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
-          👥 Gestión de Empleados
-        </h2>
-        <UsersTable />
-      </section>
+      <UsersTable />
 
       {/* Tabla de Productos */}
-      <section className="space-y-4">
-        <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
-          📦 Catálogo de Productos
-        </h2>
-        <ProductsTable />
-      </section>
+      <ProductsTable />
 
       {/* Tabla de Pedidos */}
-      <div className="space-y-4">
-        <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
-          🛍️ Order Management
-        </h3>
-        <OrdersTable />
-      </div>
+      <OrdersTable />
 
       {/* Tabla de Proyectos */}
-      <div className="space-y-4">
-        <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
-          🚀 Project Portfolio
-        </h3>
-        <ProjectsTableExample />
-      </div>
+      <ProjectsTableExample />
 
       {/* Empty State Example */}
-      <div className="space-y-4">
-        <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
-          📄 Empty State Example
-        </h3>
-        <EmptyStateTable />
-      </div>
+      <EmptyStateTable />
 
       {/* Loading State Example */}
-      <div className="space-y-4">
-        <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
-          🔄 Loading State Example
-        </h3>
-        <LoadingStateTable />
-      </div>
+      <LoadingStateTable />
 
       {/* Custom Empty Content Example */}
-      <div className="space-y-4">
-        <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
-          🎨 Custom Empty Content Example
-        </h3>
-        <CustomEmptyContentTable />
-      </div>
+      <CustomEmptyContentTable />
+
+      {/* Custom Empty Content Example */}
+      <CustomStyleTable />
     </ExamplesLayout>
   );
 };
 
 export default TableExamples;
-
