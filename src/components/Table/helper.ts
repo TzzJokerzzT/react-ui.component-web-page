@@ -12,20 +12,15 @@ import type { Key } from "react";
 /**
  * Table color classes
  */
-export const getTableColorClasses = (color: TableColor, customColor?: CustomTableColor): string => {
+export const getTableColorClasses = (
+  color: TableColor,
+  customColor?: CustomTableColor
+): string => {
   if (color === "custom" && customColor) {
-    const border = customColor.border || "transparent";
-    let backgroundClass = "";
-    
-    if (customColor.gradient) {
-      // Handle gradient backgrounds
-      backgroundClass = `bg-gradient-to-r ${customColor.gradient}`;
-    } else {
-      const background = customColor.background || "transparent";
-      backgroundClass = `bg-[${background}]`;
-    }
-    
-    return `border-[${border}] ${backgroundClass}`;
+    const borderClass = customColor.border ?? "";
+    const backgroundClass = customColor.gradient ?? customColor.background ?? "";
+
+    return [borderClass, backgroundClass].filter(Boolean).join(" ");
   }
 
   const colors = {
@@ -36,7 +31,8 @@ export const getTableColorClasses = (color: TableColor, customColor?: CustomTabl
     warning: "border-yellow-200 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-950",
     danger: "border-red-200 bg-red-50 dark:border-red-800 dark:bg-red-950",
     custom: "border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900", // fallback
-  };
+  } as const;
+
   return colors[color] || colors.default;
 };
 
@@ -135,15 +131,14 @@ export const getTableHeaderCellClasses = (
   centerHeaderText?: boolean,
   customColor?: CustomTableColor
 ): string => {
-  const textColor = customColor?.text ? `text-[${customColor.text}]` : "text-gray-700 dark:text-gray-300";
-  const borderColor = customColor?.border ? `border-[${customColor.border}]` : "border-gray-200 dark:border-gray-700";
+  const textColor = customColor?.text || "text-gray-700 dark:text-gray-300";
+  const borderColor = customColor?.border || "border-gray-200 dark:border-gray-700";
   const baseClasses = `font-semibold ${textColor} border-b ${borderColor}`;
   const paddingClasses = isCompact ? "px-3 py-2" : "px-6 py-3";
   const alignClasses = centerHeaderText ? "text-center" : getColumnAlignClasses(align);
-  const sortableClasses = allowsSorting 
-    ? customColor?.hover 
-      ? `cursor-pointer hover:bg-[${customColor.hover}] select-none`
-      : "cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 select-none"
+  const sortableHover = customColor?.hover || "hover:bg-gray-100 dark:hover:bg-gray-700";
+  const sortableClasses = allowsSorting
+    ? `cursor-pointer select-none ${sortableHover}`
     : "";
 
   return [baseClasses, paddingClasses, alignClasses, sortableClasses]
@@ -162,29 +157,27 @@ export const getTableRowClasses = (
   hasHover: boolean,
   customColor?: CustomTableColor
 ): string => {
-  const baseClasses = customColor?.border 
-    ? `border-b border-[${customColor.border}] transition-colors`
+  const baseClasses = customColor?.border
+    ? `border-b ${customColor.border} transition-colors`
     : "border-b border-gray-200 dark:border-gray-700 transition-colors";
-  
+
   let backgroundClasses = "";
   if (isSelected) {
-    backgroundClasses = customColor?.selected 
-      ? `bg-[${customColor.selected}]`
+    backgroundClasses = customColor?.selected
+      ? customColor.selected
       : "bg-blue-50 dark:bg-blue-900/20";
   } else if (isStriped && isEven) {
-    backgroundClasses = customColor?.background 
-      ? `bg-[${customColor.background}]/10`
+    backgroundClasses = customColor?.background
+      ? customColor.background
       : "bg-gray-50 dark:bg-gray-800/50";
   }
-  
+
   const hoverClasses = hasHover && !isDisabled && !isSelected
-    ? customColor?.hover 
-      ? `hover:bg-[${customColor.hover}]`
-      : "hover:bg-gray-50 dark:hover:bg-gray-800/50"
+    ? customColor?.hover || "hover:bg-gray-50 dark:hover:bg-gray-800/50"
     : "";
-  
-  const disabledClasses = isDisabled 
-    ? "opacity-50 cursor-not-allowed" 
+
+  const disabledClasses = isDisabled
+    ? "opacity-50 cursor-not-allowed"
     : "cursor-pointer";
 
   return [baseClasses, backgroundClasses, hoverClasses, disabledClasses]
@@ -201,8 +194,8 @@ export const getTableCellClasses = (
   centerCellText?: boolean,
   customColor?: CustomTableColor
 ): string => {
-  const baseClasses = customColor?.text 
-    ? `text-[${customColor.text}]`
+  const baseClasses = customColor?.text
+    ? customColor.text
     : "text-gray-900 dark:text-gray-100";
   const paddingClasses = isCompact ? "px-3 py-2" : "px-6 py-4";
   const alignClasses = centerCellText ? "text-center" : getColumnAlignClasses(align);
@@ -210,6 +203,7 @@ export const getTableCellClasses = (
   return [baseClasses, paddingClasses, alignClasses]
     .filter(Boolean)
     .join(" ");
+
 };
 
 /**
