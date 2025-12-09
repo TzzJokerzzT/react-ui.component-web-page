@@ -5,7 +5,11 @@ import TableHeader from "../TableHeader";
 
 export const TextAlignment = () => {
   return (
-    <div className="space-y-6">
+    <section className="space-y-4">
+      <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
+        Text Alignment
+      </h2>
+
       {/* Default Alignment */}
       <div>
         <h3 className="text-lg font-medium mb-2">Default Column Alignment</h3>
@@ -92,6 +96,6 @@ export const TextAlignment = () => {
           </Table>
         </div>
       </div>
-    </div>
+    </section>
   );
 };

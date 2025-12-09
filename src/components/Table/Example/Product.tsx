@@ -21,28 +21,33 @@ export const ProductsTable = () => {
   }, [products, sortDescriptor]);
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-      <Table
-        columns={productColumns}
-        items={sortedProducts}
-        sortDescriptor={sortDescriptor}
-        onSortChange={setSortDescriptor}
-        isCompact
-        topContent={
-          <div className="flex justify-between items-center p-4">
-            <div>
-              <h3 className="text-lg font-semibold">Catálogo de Productos</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Gestiona tu inventario
-              </p>
+    <section className="space-y-4">
+      <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
+        📦 Catálogo de Productos
+      </h2>
+      <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+        <Table
+          columns={productColumns}
+          items={sortedProducts}
+          sortDescriptor={sortDescriptor}
+          onSortChange={setSortDescriptor}
+          isCompact
+          topContent={
+            <div className="flex justify-between items-center p-4">
+              <div>
+                <h3 className="text-lg font-semibold">Catálogo de Productos</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Gestiona tu inventario
+                </p>
+              </div>
+              <Button color="success">Agregar Producto</Button>
             </div>
-            <Button color="success">Agregar Producto</Button>
-          </div>
-        }
-      >
-        <TableHeader columns={productColumns} />
-        <TableBody items={sortedProducts} />
-      </Table>
-    </div>
+          }
+        >
+          <TableHeader columns={productColumns} />
+          <TableBody items={sortedProducts} />
+        </Table>
+      </div>
+    </section>
   );
 };

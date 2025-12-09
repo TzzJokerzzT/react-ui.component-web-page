@@ -26,35 +26,40 @@ export const CustomEmptyContentTable = () => {
   );
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-      <Table
-        columns={customColumns}
-        items={[]} // Empty array
-        emptyContent={customEmptyContent} // Custom empty content
-        topContent={
-          <div className="flex justify-between items-center p-4">
-            <div>
-              <h4 className="text-lg font-semibold">
-                Product Catalog (Custom Empty)
-              </h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Custom empty state with branded messaging
-              </p>
+    <section className="space-y-4">
+      <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
+        🎨 Custom Empty Content Example
+      </h3>
+      <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+        <Table
+          columns={customColumns}
+          items={[]} // Empty array
+          emptyContent={customEmptyContent} // Custom empty content
+          topContent={
+            <div className="flex justify-between items-center p-4">
+              <div>
+                <h4 className="text-lg font-semibold">
+                  Product Catalog (Custom Empty)
+                </h4>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Custom empty state with branded messaging
+                </p>
+              </div>
+              <div className="flex space-x-2">
+                <button className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                  Import Products
+                </button>
+                <button className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors">
+                  Add Product
+                </button>
+              </div>
             </div>
-            <div className="flex space-x-2">
-              <button className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                Import Products
-              </button>
-              <button className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors">
-                Add Product
-              </button>
-            </div>
-          </div>
-        }
-      >
-        <TableHeader columns={customColumns} />
-        <TableBody items={[]} />
-      </Table>
-    </div>
+          }
+        >
+          <TableHeader columns={customColumns} />
+          <TableBody items={[]} />
+        </Table>
+      </div>
+    </section>
   );
 };

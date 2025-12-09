@@ -26,22 +26,27 @@ export const SortableTable = () => {
   }, [sortDescriptor]);
 
   return (
-    <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-      <div className="mb-4">
-        <p className="text-sm text-gray-600 dark:text-gray-400">
-          Current sort: <strong>{sortDescriptor.column}</strong> (
-          {sortDescriptor.direction})
-        </p>
+    <section className="space-y-4">
+      <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
+        Sortable Table
+      </h2>
+      <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
+        <div className="mb-4">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Current sort: <strong>{sortDescriptor.column}</strong> (
+            {sortDescriptor.direction})
+          </p>
+        </div>
+        <Table
+          columns={columns}
+          items={sortedItems}
+          sortDescriptor={sortDescriptor}
+          onSortChange={setSortDescriptor}
+        >
+          <TableHeader columns={columns} />
+          <TableBody items={sortedItems} />
+        </Table>
       </div>
-      <Table
-        columns={columns}
-        items={sortedItems}
-        sortDescriptor={sortDescriptor}
-        onSortChange={setSortDescriptor}
-      >
-        <TableHeader columns={columns} />
-        <TableBody items={sortedItems} />
-      </Table>
-    </div>
+    </section>
   );
 };

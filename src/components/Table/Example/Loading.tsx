@@ -5,7 +5,10 @@ import TableHeader, { TableColumn } from "../TableHeader";
 
 export const LoadingAndEmpty = () => {
   return (
-    <div className="space-y-6">
+    <section className="space-y-4">
+      <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
+        Loading and Empty States
+      </h2>
       {/* Loading State */}
       <div>
         <h3 className="text-lg font-medium mb-2">Loading State</h3>
@@ -30,6 +33,6 @@ export const LoadingAndEmpty = () => {
           <Table columns={columns} items={[]} />
         </div>
       </div>
-    </div>
+    </section>
   );
 };

@@ -36,28 +36,33 @@ export const LoadingStateTable = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-      <Table
-        columns={loadingColumns}
-        items={users}
-        loading={loading} // Loading state prop
-        topContent={
-          <div className="flex justify-between items-center p-4">
-            <div>
-              <h4 className="text-lg font-semibold">Users Table (Loading)</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                {loading ? "Fetching users..." : "Users loaded successfully"}
-              </p>
+    <section className="space-y-4">
+      <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
+        🔄 Loading State Example
+      </h3>
+      <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+        <Table
+          columns={loadingColumns}
+          items={users}
+          loading={loading} // Loading state prop
+          topContent={
+            <div className="flex justify-between items-center p-4">
+              <div>
+                <h4 className="text-lg font-semibold">Users Table (Loading)</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  {loading ? "Fetching users..." : "Users loaded successfully"}
+                </p>
+              </div>
+              <Button onClick={handleReload} disabled={loading} color="primary">
+                {loading ? "Loading..." : "Reload Data"}
+              </Button>
             </div>
-            <Button onClick={handleReload} disabled={loading} color="primary">
-              {loading ? "Loading..." : "Reload Data"}
-            </Button>
-          </div>
-        }
-      >
-        <TableHeader columns={loadingColumns} />
-        <TableBody items={users} />
-      </Table>
-    </div>
+          }
+        >
+          <TableHeader columns={loadingColumns} />
+          <TableBody items={users} />
+        </Table>
+      </div>
+    </section>
   );
 };

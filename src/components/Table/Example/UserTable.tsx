@@ -18,58 +18,63 @@ export const UsersTable = () => {
   const users = tableData.users as any[];
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-      <Table
-        columns={userColumns}
-        items={users}
-        selectionMode="multiple"
-        showSelectionCheckboxes
-        selectedKeys={selectedKeys}
-        onSelectionChange={setSelectedKeys}
-        sortDescriptor={sortDescriptor}
-        onSortChange={setSortDescriptor}
-        isStriped
-        topContent={
-          <div className="flex justify-between items-center p-4">
-            <div>
-              <h4 className="text-lg font-semibold">Empleados</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Gestiona el equipo de tu empresa
-              </p>
+    <section className="space-y-4">
+      <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
+        👥 Gestión de Empleados
+      </h2>
+      <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+        <Table
+          columns={userColumns}
+          items={users}
+          selectionMode="multiple"
+          showSelectionCheckboxes
+          selectedKeys={selectedKeys}
+          onSelectionChange={setSelectedKeys}
+          sortDescriptor={sortDescriptor}
+          onSortChange={setSortDescriptor}
+          isStriped
+          topContent={
+            <div className="flex justify-between items-center p-4">
+              <div>
+                <h4 className="text-lg font-semibold">Empleados</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Gestiona el equipo de tu empresa
+                </p>
+              </div>
+              <div className="flex space-x-2">
+                <Button>Agregar Empleado</Button>
+                <Button variant="outline" color="default">
+                  Exportar
+                </Button>
+              </div>
             </div>
-            <div className="flex space-x-2">
-              <Button>Agregar Empleado</Button>
-              <Button variant="outline" color="default">
-                Exportar
-              </Button>
+          }
+          bottomContent={
+            <div className="flex justify-between items-center p-4">
+              <span className="text-sm text-gray-600 dark:text-gray-400">
+                Total: {users.length} empleados
+                {selectedKeys !== "all" &&
+                  (selectedKeys as Set<any>).size > 0 && (
+                    <span className="ml-2">
+                      ({(selectedKeys as Set<any>).size} seleccionados)
+                    </span>
+                  )}
+              </span>
+              <div className="flex space-x-1">
+                <Pagination
+                  total={2}
+                  size="sm"
+                  variant="bordered"
+                  color="default"
+                />
+              </div>
             </div>
-          </div>
-        }
-        bottomContent={
-          <div className="flex justify-between items-center p-4">
-            <span className="text-sm text-gray-600 dark:text-gray-400">
-              Total: {users.length} empleados
-              {selectedKeys !== "all" &&
-                (selectedKeys as Set<any>).size > 0 && (
-                  <span className="ml-2">
-                    ({(selectedKeys as Set<any>).size} seleccionados)
-                  </span>
-                )}
-            </span>
-            <div className="flex space-x-1">
-              <Pagination
-                total={2}
-                size="sm"
-                variant="bordered"
-                color="default"
-              />
-            </div>
-          </div>
-        }
-      >
-        <TableHeader columns={userColumns} />
-        <TableBody items={users} />
-      </Table>
-    </div>
+          }
+        >
+          <TableHeader columns={userColumns} />
+          <TableBody items={users} />
+        </Table>
+      </div>
+    </section>
   );
 };

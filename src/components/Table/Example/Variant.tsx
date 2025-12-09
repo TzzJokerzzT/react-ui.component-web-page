@@ -5,7 +5,11 @@ import TableHeader from "../TableHeader";
 
 export const TableVariants = () => {
   return (
-    <div className="space-y-6">
+    <section className="space-y-4">
+      <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
+        Table Variants
+      </h2>
+
       {/* Striped */}
       <div>
         <h3 className="text-lg font-medium mb-2">Striped Table</h3>
@@ -56,6 +60,6 @@ export const TableVariants = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
