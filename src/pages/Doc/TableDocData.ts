@@ -4,7 +4,13 @@ export const columns = [
   { key: "default", label: "DEFAULT", allowsSorting: false },
   { key: "description", label: "DESCRIPTION", allowsSorting: false },
 ];
-export const content = [
+
+export const customColorColumns = [
+  { key: "prop", label: "PROP", allowsSorting: false },
+  { key: "type", label: "TYPE", allowsSorting: false },
+  { key: "example", label: "EXAMPLE", allowsSorting: false },
+];
+export const tableContent = [
   {
     id: 1,
     key: "children",
@@ -27,7 +33,8 @@ export const content = [
     prop: "color",
     type: '"default" | "primary" | "secondary" | "success" | "warning" | "danger" | "custom"',
     default: '"default"',
-    description: "Color theme of the table. Use 'custom' with customColor prop for personalized colors",
+    description:
+      "Color theme of the table. Use 'custom' with customColor prop for personalized colors",
   },
   {
     id: 4,
@@ -35,7 +42,8 @@ export const content = [
     prop: "customColor",
     type: "CustomTableColor",
     default: "-",
-    description: "Custom color configuration object. Only used when color='custom'. Allows setting background, border, text, hover, selected colors, and gradients",
+    description:
+      "Custom color configuration object. Only used when color='custom'. Allows setting background, border, text, hover, selected colors, and gradients",
   },
   {
     id: 5,
@@ -187,7 +195,8 @@ export const content = [
     prop: "centerHeaderText",
     type: "boolean",
     default: "false",
-    description: "Whether to center all column header text (overrides individual column align)",
+    description:
+      "Whether to center all column header text (overrides individual column align)",
   },
   {
     id: 24,
@@ -195,7 +204,8 @@ export const content = [
     prop: "centerCellText",
     type: "boolean",
     default: "false",
-    description: "Whether to center all table cell content (overrides individual column align)",
+    description:
+      "Whether to center all table cell content (overrides individual column align)",
   },
   {
     id: 25,
@@ -204,5 +214,45 @@ export const content = [
     type: "string",
     default: "-",
     description: "Test ID for testing frameworks",
+  },
+];
+
+export const customColor = [
+  {
+    id: 1,
+    prop: "background",
+    type: "string",
+    example: 'background: "bg-purple-50 dark:bg-purple-900/20"',
+  },
+  {
+    key: 2,
+    prop: "border",
+    type: "string",
+    example: 'border: "border-purple-200 dark:border-purple-800"',
+  },
+  {
+    key: 3,
+    prop: "text",
+    type: "string",
+    example: 'text: "text-purple-900 dark:text-purple-100"',
+  },
+  {
+    key: 4,
+    prop: "hover",
+    type: "string",
+    example: 'hover: "hover:bg-purple-100 dark:hover:bg-purple-900/30"',
+  },
+  {
+    key: 5,
+    prop: "selected",
+    type: "string",
+    example: 'selected: "bg-purple-200 dark:bg-purple-700/50"',
+  },
+  {
+    key: 6,
+    prop: "gradient",
+    type: "string",
+    example:
+      "gradient: bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20",
   },
 ];
