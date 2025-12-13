@@ -22,6 +22,7 @@ export default defineConfig({
       "@/components": path.resolve(__dirname, "./src/components"),
       "@/pages": path.resolve(__dirname, "./src/pages"),
       "@/layout": path.resolve(__dirname, "./src/layout"),
+      "@/share": path.resolve(__dirname, "./src/share"),
     },
   },
 });

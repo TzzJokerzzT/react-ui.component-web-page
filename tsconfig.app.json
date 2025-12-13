@@ -22,7 +22,8 @@
       "@/*": ["./src/*"],
       "@/components/*": ["./src/components/*"],
       "@/pages/*": ["./src/pages/*"],
-      "@/layout/*": ["./src/layout/*"]
+      "@/layout/*": ["./src/layout/*"],
+      "@/shared/*": ["./src/shared/*"]
     },
 
     /* Linting */
