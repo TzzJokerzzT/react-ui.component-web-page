@@ -1,10 +1,5 @@
-import { useState } from "react";
-import { SwitchExamples } from "../components/Switch/SwitchExamples";
-import { SwitchCenteringTest } from "../components/Switch/SwitchCenteringTest";
-import { SwitchThumbClickTest } from "../components/Switch/SwitchThumbClickTest";
-import { SwitchDebugTest } from "../components/Switch/SwitchDebugTest";
-import { Switch } from "../components/Switch";
 import PagesLayout from "@/layout/PagesLayout";
+import { SwitchExamples } from "../components/Switch/SwitchExamples";
 import { SwitchDoc } from "./Doc/SwitchDoc";
 
 /**
